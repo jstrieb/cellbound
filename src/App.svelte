@@ -9,6 +9,12 @@
     border-collapse: collapse;
   }
 
+  th {
+    border: 1px solid var(--fg-color);
+    background: lightgrey;
+    padding: 0.25rem;
+  }
+
   td {
     border: 1px solid var(--fg-color);
   }
@@ -36,16 +42,24 @@
 
 <div class="container">
   <table>
+    <thead>
+      <tr>
+        <th></th>
+        {#each rows[0] as _, i}
+          <th>C{i}</th>
+        {/each}
+      </tr>
+    </thead>
     <tbody>
       {#each rows as row, i}
         <tr>
+          <th>R{i}</th>
           {#each row as col, j}
             <td>
               <div>
                 <input
                   type="text"
-                  style="border-bottom: 1px dashed var(--fg-color)"
-                  placeholder="Formula"
+                  style="border-bottom: 1px dashed lightgray;"
                   bind:value={rows[i][j]}
                 />
                 <p style="padding: 0.25rem; min-height: 1.5rem;">
@@ -57,8 +71,6 @@
                         return rows[i][j];
                       }
                     })()}
-                  {:else}
-                    <span style="color: darkgray;">Calculated Value</span>
                   {/if}
                 </p>
               </div>
