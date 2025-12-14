@@ -1,0 +1,10 @@
+{
+  "type": "module",
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "",
+    "prettier": "",
+    "prettier-plugin-svelte": "",
+    "svelte": "",
+    "vite": ""
+  }
+}
