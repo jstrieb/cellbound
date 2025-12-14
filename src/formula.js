@@ -1,5 +1,36 @@
-import { str, alt, num, forwardDeclaration, EOF } from "./lib/parsers.js";
+import {
+  lex,
+  str,
+  alt,
+  forwardDeclaration,
+  EOF,
+  num,
+  whitespace,
+  anyChar,
+} from "./lib/parsers.js";
+
+const stringChar = alt(
+  str("\\\\").map(() => "\\"),
+  str('\\"').map(() => '"'),
+  str("\\'").map(() => "'"),
+  str("\\t").map(() => "\t"),
+  str("\\n").map(() => "\n"),
+  anyChar,
+);
+const string = alt(
+  lex(
+    str('"')
+      .then(stringChar.until(str('"')).optional([]).concat())
+      .skip(str('"')),
+  ),
+  lex(
+    str("'")
+      .then(stringChar.until(str("'")).optional([]).concat())
+      .skip(str("'")),
+  ),
+);
 
 const expression = forwardDeclaration();
-expression.become(num);
+expression.become(alt(num, string));
+
 export const formula = alt(str("=").then(expression), num).skip(EOF);
