@@ -30,7 +30,12 @@ const string = alt(
   ),
 );
 
+const bool = alt(
+  lex("true").map(() => true),
+  lex("false").map(() => false),
+);
+
 const expression = forwardDeclaration();
-expression.become(alt(num, string));
+expression.become(alt(num, string, bool));
 
 export const formula = alt(str("=").then(expression), num).skip(EOF);
