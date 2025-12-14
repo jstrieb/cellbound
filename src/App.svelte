@@ -27,6 +27,8 @@
 </style>
 
 <script>
+  import { formula } from "./formula.js";
+
   const rows = $state(
     new Array(3).fill().map(() => new Array(3).fill().map(() => null)),
   );
@@ -48,7 +50,13 @@
                 />
                 <p style="padding: 0.25rem; min-height: 1.5rem;">
                   {#if rows[i][j]}
-                    {rows[i][j]}
+                    {(() => {
+                      try {
+                        return formula.parse(rows[i][j]);
+                      } catch {
+                        return rows[i][j];
+                      }
+                    })()}
                   {:else}
                     <span style="color: darkgray;">Calculated Value</span>
                   {/if}
@@ -61,6 +69,3 @@
     </tbody>
   </table>
 </div>
-<pre>
-{JSON.stringify(rows, "", 2)}
-</pre>
