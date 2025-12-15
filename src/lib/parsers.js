@@ -235,6 +235,7 @@ export const EOF = (() => {
 export const anyChar = new Parser((s) => new ParseResult(s[0], s.slice(1)));
 export const num = alt(
   regex(/-?\d[_\d]*\.\d+/).map((x) => parseFloat(x.replaceAll("_", ""))),
+  regex(/-?0b[01][_01]*/).map((x) => parseInt(x.replace(/0b/, ""), 2)),
   regex(/-?(0x[0-9A-Fa-f][_0-9A-Fa-f]*|\d[_\d]*)/).map((x) =>
     parseInt(x.replaceAll("_", "")),
   ),
@@ -246,4 +247,23 @@ export function lex(p) {
     p = str(p);
   }
   return whitespace.then(p).skip(whitespace);
+}
+
+export function infixR(subparser, operations) {
+  let result = forwardDeclaration();
+  result.become(
+    alt(seq(subparser, alt(...operations.map(lex)), result), subparser),
+  );
+  return result;
+}
+
+export function infixL(subparser, operations) {
+  return lex(
+    seq(
+      subparser,
+      seq(alt(...operations.map(lex)), subparser)
+        .many()
+        .map((l) => l.flat()),
+    ).map(([first, last]) => (last.length ? [first, ...last] : first)),
+  );
 }

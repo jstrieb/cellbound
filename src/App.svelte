@@ -62,11 +62,13 @@
                   style="border-bottom: 1px dashed lightgray;"
                   bind:value={rows[i][j]}
                 />
-                <p style="padding: 0.25rem; min-height: 1.5rem;">
+                <p
+                  style="padding: 0.25rem; min-height: 1.5rem; white-space: pre;"
+                >
                   {#if rows[i][j]}
                     {(() => {
                       try {
-                        return formula.parse(rows[i][j]);
+                        return JSON.stringify(formula.parse(rows[i][j]));
                       } catch {
                         return rows[i][j];
                       }
