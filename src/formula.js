@@ -9,7 +9,10 @@ import {
   EOF,
   infixR,
   infixL,
+  regex,
 } from "./lib/parsers.js";
+
+const expression = forwardDeclaration();
 
 const stringChar = alt(
   str("\\\\").map(() => "\\"),
@@ -33,9 +36,23 @@ const bool = alt(
   str("false").map(() => false),
 );
 
-const expression = forwardDeclaration();
+const identifier = regex(/[a-zA-Z_][a-zA-Z0-9_]*/);
+const fun = seq(
+  identifier,
+  str("(")
+    .then(expression.sep_by(lex(",")).optional([]))
+    .skip(str(")")),
+);
+
 const value = lex(
-  alt(num, string, bool, lex("(").then(expression).skip(lex(")"))),
+  alt(
+    num,
+    string,
+    bool,
+    fun,
+    identifier,
+    lex("(").then(expression).skip(lex(")")),
+  ),
 );
 
 const operations = {
