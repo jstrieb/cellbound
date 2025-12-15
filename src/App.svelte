@@ -19,6 +19,10 @@
     border: 1px solid var(--fg-color);
   }
 
+  td:has(input:focus) {
+    outline: 1.5px solid var(--fg-color);
+  }
+
   td > div {
     display: flex;
     flex-direction: column;
