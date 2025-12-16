@@ -44,11 +44,25 @@ const fun = seq(
     .skip(str(")")),
 );
 
+const cellIndex = regex(/-?\d[_\d]*/).map((x) =>
+  parseInt(x.replaceAll("_", "")),
+);
+const relNum = str("[")
+  .then(cellIndex)
+  .skip(str("]"))
+  .map((n) => ({ relative: n }));
+const absNum = cellIndex.map((n) => ({ absolute: n }));
+const cellNum = alt(relNum, absNum).optional();
+const ref = seq(regex(/[rR]/).then(cellNum), regex(/[cC]/).then(cellNum));
+const range = seq(ref.skip(lex(":")), ref);
+
 const value = lex(
   alt(
     num,
     string,
     bool,
+    range,
+    ref,
     fun,
     identifier,
     lex("(").then(expression).skip(lex(")")),
