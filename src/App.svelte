@@ -34,6 +34,12 @@
     padding: 0.25rem;
     font-family: monospace, monospace;
   }
+
+  button {
+    margin: 1rem 0;
+    padding: 0.25rem;
+    cursor: pointer;
+  }
 </style>
 
 <script>
@@ -109,4 +115,19 @@
       {/each}
     </tbody>
   </table>
+  <!-- TODO: Remove -->
+  <button
+    onclick={() => {
+      rows.push(new Array(rows[0].length).fill().map(() => new Cell()));
+    }}
+  >
+    Add row
+  </button>
+  <button
+    onclick={() => {
+      rows.map((row) => row.push(new Cell()));
+    }}
+  >
+    Add col
+  </button>
 </div>
