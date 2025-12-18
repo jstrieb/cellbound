@@ -249,21 +249,33 @@ export function lex(p) {
   return whitespace.then(p).skip(whitespace);
 }
 
-export function infixR(subparser, operations) {
+export function infixR(subparser, operations, cls) {
   let result = forwardDeclaration();
-  result.become(
-    alt(seq(subparser, alt(...operations.map(lex)), result), subparser),
-  );
+  let inner = seq(subparser, alt(...operations.map(lex)), result);
+  if (cls != null) {
+    inner = inner.map((...args) => new cls(...args));
+  }
+  result.become(alt(inner, subparser));
   return result;
 }
 
-export function infixL(subparser, operations) {
-  return lex(
+export function infixL(subparser, operations, cls) {
+  let result = lex(
     seq(
       subparser,
       seq(alt(...operations.map(lex)), subparser)
         .many()
         .map((l) => l.flat()),
-    ).map(([first, last]) => (last.length ? [first, ...last] : first)),
+    ),
   );
+  if (cls != null) {
+    result = result.map(([first, last]) =>
+      last.length ? new cls([first, ...last]) : first,
+    );
+  } else {
+    result = result.map(([first, last]) =>
+      last.length ? [first, ...last] : first,
+    );
+  }
+  return result;
 }
