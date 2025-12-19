@@ -15,26 +15,6 @@
     padding: 0.25rem;
   }
 
-  td {
-    border: 1px solid var(--fg-color);
-  }
-
-  td:has(input:focus) {
-    outline: 1.5px solid var(--fg-color);
-  }
-
-  td > div {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-  }
-
-  input[type="text"] {
-    border: none;
-    padding: 0.25rem;
-    font-family: monospace, monospace;
-  }
-
   button {
     margin: 1rem 0;
     padding: 0.25rem;
@@ -43,13 +23,20 @@
 </style>
 
 <script>
+  import TableCell from "./Cell.svelte";
   import { formula } from "./formula.js";
   import { ParseError } from "./lib/parsers.js";
+  import { rederivable } from "./lib/store.js";
 
   class Cell {
+    formula;
+    value;
+    error;
+
     constructor(formula) {
       this.formula = $state(formula);
-      this.value = $state(undefined);
+      this.error = $state();
+      this.value = rederivable(undefined);
     }
 
     toString() {
@@ -66,14 +53,20 @@
       for (const cell of row) {
         $effect(() => {
           try {
-            cell.value = formula.parse(cell.formula);
-          } catch (e) {
-            if (e instanceof ParseError) {
-              cell.value = cell.formula;
+            const parsed = formula.parse(cell.formula);
+            const computed = parsed?.compute ? parsed.compute() : parsed;
+            if (computed.subscribe) {
+              cell.value.rederive([computed], ([x], _, set) => set(x));
             } else {
-              console.error(e);
-              cell.value = e;
+              cell.value.rederive([], (_, set) => set(computed));
             }
+            cell.error = undefined;
+          } catch (e) {
+            if (!(e instanceof ParseError)) {
+              cell.error = e;
+              console.error(e);
+            }
+            cell.value.rederive([], (_, set) => set(cell.formula));
           }
         });
       }
@@ -96,20 +89,7 @@
         <tr>
           <th>R{i}</th>
           {#each row as col, j}
-            <td>
-              <div>
-                <input
-                  type="text"
-                  style="border-bottom: 1px dashed lightgray;"
-                  bind:value={rows[i][j].formula}
-                />
-                <p
-                  style="padding: 0.25rem; min-height: 1.5rem; white-space: pre;"
-                >
-                  {(rows[i][j].value && rows[i][j]) || ""}
-                </p>
-              </div>
-            </td>
+            <TableCell cell={rows[i][j]} value={rows[i][j].value} />
           {/each}
         </tr>
       {/each}
