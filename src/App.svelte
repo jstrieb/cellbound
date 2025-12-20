@@ -33,11 +33,15 @@
     formula;
     value;
     error;
+    locked;
+    hidden;
 
-    constructor(formula) {
+    constructor(formula, locked = false, hidden = false) {
       this.formula = $state(formula);
       this.error = $state();
       this.value = rederivable(undefined);
+      this.locked = $state(locked);
+      this.hidden = $state(hidden);
     }
 
     toString() {

@@ -17,6 +17,11 @@
     border: none;
     padding: 0.25rem;
     font-family: monospace, monospace;
+    border-bottom: 1px dashed lightgray;
+  }
+
+  input[type="text"]:disabled {
+    background: #f0f0f0;
   }
 
   .error {
@@ -30,11 +35,13 @@
 
 <td>
   <div>
-    <input
-      type="text"
-      style="border-bottom: 1px dashed lightgray;"
-      bind:value={cell.formula}
-    />
+    {#if cell.locked}
+      <input type="text" bind:value={cell.formula} disabled />
+    {:else if cell.hidden}
+      <input type="text" value="[HIDDEN]" disabled />
+    {:else}
+      <input type="text" bind:value={cell.formula} />
+    {/if}
     <p
       class:error={cell.error}
       style="
