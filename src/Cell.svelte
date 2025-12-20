@@ -35,10 +35,10 @@
 
 <td>
   <div>
-    {#if cell.locked}
-      <input type="text" bind:value={cell.formula} disabled />
-    {:else if cell.hidden}
+    {#if cell.hidden}
       <input type="text" value="[HIDDEN]" disabled />
+    {:else if cell.locked}
+      <input type="text" bind:value={cell.formula} disabled />
     {:else}
       <input type="text" bind:value={cell.formula} />
     {/if}

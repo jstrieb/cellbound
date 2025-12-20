@@ -57,3 +57,9 @@ ul {
 input[type="checkbox"] {
   appearance: auto;
 }
+
+code {
+  font-family: monospace, monospace;
+  background: #e8e8e8;
+  padding: 0 0.25rem;
+}
