@@ -1,3 +1,4 @@
+import { functions } from "./formula-functions.js";
 import {
   alt,
   str,
@@ -12,7 +13,7 @@ import {
   regex,
 } from "./lib/parsers.js";
 import { reshape } from "./lib/helpers.js";
-import { derived } from "svelte/store";
+import { derived, readable } from "svelte/store";
 
 ///////////////////////////////////////////////////////////////////////////////
 // Classes
@@ -44,7 +45,37 @@ class Function extends Expression {
   }
 
   compute(cells, row, col, variables) {
-    throw new Error("Not yet implemented");
+    const computed = this.args.map((arg) =>
+      arg?.compute ? arg.compute(cells, row, col, variables) : arg,
+    );
+    if (computed.some((x) => x?.subscribe)) {
+      return derived(
+        computed.filter((x) => x?.subscribe),
+        (updated, set, update) =>
+          set(
+            functions[this.name.toLowerCase()].apply(
+              {
+                set,
+                update,
+                cells,
+                row,
+                col,
+                variables,
+              },
+              computed.map((x) => (x?.subscribe ? updated.shift() : x)),
+            ),
+          ),
+      );
+    } else {
+      return readable(null, (set, update) =>
+        set(
+          functions[this.name.toLowerCase()].apply(
+            { set, update, cells, row, col, variables },
+            computed,
+          ),
+        ),
+      );
+    }
   }
 }
 
@@ -66,7 +97,7 @@ class UnaryOp extends Expression {
 
   compute(...args) {
     const { operand, operator } = this;
-    const computed = operand.compute ? operand.compute(...args) : operand;
+    const computed = operand?.compute ? operand.compute(...args) : operand;
     if (computed.subscribe) {
       return derived([computed], (x, set) =>
         set(UnaryOp.operations[operator](x)),
@@ -121,10 +152,10 @@ class BinaryOp extends Expression {
         throw new Error("Binary operation AST length not odd");
       }
       const _x = ast.shift();
-      const x = _x.compute ? _x.compute(...args) : _x;
+      const x = _x?.compute ? _x.compute(...args) : _x;
       const op = ast.shift();
       const _y = ast.shift();
-      const y = _y.compute ? _y.compute(...args) : _y;
+      const y = _y?.compute ? _y.compute(...args) : _y;
       const isXStore = x?.subscribe;
       const isYStore = y?.subscribe;
 
