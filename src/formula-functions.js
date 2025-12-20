@@ -20,7 +20,8 @@ functions.prod = (...args) =>
   args.flat(Infinity).reduce((a, x) => a * (x ?? 1), 1);
 
 functions.tick = function (ms) {
-  setInterval(() => this.update((ticks) => ticks + 1), ms);
+  const id = setInterval(() => this.update((ticks) => ticks + 1), ms);
+  this.cleanup = () => clearInterval(id);
   return 0;
 };
 

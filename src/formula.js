@@ -51,30 +51,30 @@ class Function extends Expression {
     if (computed.some((x) => x?.subscribe)) {
       return derived(
         computed.filter((x) => x?.subscribe),
-        (updated, set, update) =>
+        (updated, set, update) => {
+          const _this = {
+            set,
+            update,
+            cells,
+            row,
+            col,
+            variables,
+          };
           set(
             functions[this.name.toLowerCase()].apply(
-              {
-                set,
-                update,
-                cells,
-                row,
-                col,
-                variables,
-              },
+              _this,
               computed.map((x) => (x?.subscribe ? updated.shift() : x)),
             ),
-          ),
+          );
+          return _this.cleanup;
+        },
       );
     } else {
-      return readable(null, (set, update) =>
-        set(
-          functions[this.name.toLowerCase()].apply(
-            { set, update, cells, row, col, variables },
-            computed,
-          ),
-        ),
-      );
+      return readable(null, (set, update) => {
+        const _this = { set, update, cells, row, col, variables };
+        set(functions[this.name.toLowerCase()].apply(_this, computed));
+        return _this.cleanup;
+      });
     }
   }
 }
