@@ -43,7 +43,13 @@
         white-space: pre;
       "
     >
-      {typeof $value == "string" ? $value : JSON.stringify($value)}
+      {#if cell.error}
+        {cell.error}
+      {:else if typeof $value == "string"}
+        {$value}
+      {:else}
+        {JSON.stringify($value)}
+      {/if}
     </p>
   </div>
 </td>
