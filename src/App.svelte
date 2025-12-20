@@ -60,7 +60,7 @@
             const computed = parsed?.compute
               ? parsed.compute(rows, i, j, variables)
               : parsed;
-            if (computed.subscribe) {
+            if (computed?.subscribe) {
               cell.value.rederive([computed], ([x], set) => set(x));
             } else {
               cell.value.rederive([], (_, set) => set(computed));

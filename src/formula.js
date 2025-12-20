@@ -29,7 +29,7 @@ class Variable extends Expression {
   }
 
   compute(cells, row, col, variables) {
-    return variables[name];
+    return variables[this.name];
   }
 }
 
@@ -355,7 +355,7 @@ const value = lex(
     range,
     ref,
     fun,
-    identifier,
+    identifier.map(init(Variable)),
     lex("(").then(expression).skip(lex(")")),
   ),
 );
