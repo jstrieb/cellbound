@@ -48,3 +48,12 @@ functions.sparkbars = (...args) => {
   const bucketSize = (max - min) / (lines.length - 1);
   return args.map((x) => lines[Math.floor((x - min) / bucketSize)]).join("");
 };
+
+const cache = {};
+functions.cache = function (n, x) {
+  const k = `${this.row},${this.col}`;
+  if (cache[k] == null) cache[k] = [];
+  cache[k].push(x);
+  while (cache[k].length > n) cache[k].shift();
+  return cache[k];
+};
