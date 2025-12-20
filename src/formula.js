@@ -11,6 +11,7 @@ import {
   infixL,
   regex,
 } from "./lib/parsers.js";
+import { reshape } from "./lib/helpers.js";
 import { derived } from "svelte/store";
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -160,7 +161,39 @@ class Reference extends Expression {
   }
 
   compute(cells, row, col, variables) {
-    throw new Error("Not yet implemented");
+    let i;
+    if (this.row == null) {
+      i = row;
+    } else if (this.row.absolute != null) {
+      const r = this.row.absolute;
+      if (r < 0) {
+        i = (r + cells.length) % cells.length;
+      } else {
+        i = r;
+      }
+    } else if (this.row.relative != null) {
+      i = row + this.row.relative;
+    } else {
+      throw new Error("Unreachable");
+    }
+
+    let j;
+    if (this.col == null) {
+      j = col;
+    } else if (this.col.absolute != null) {
+      const c = this.col.absolute;
+      if (c < 0) {
+        j = (c + cells[0].length) % cells[0].length;
+      } else {
+        j = c;
+      }
+    } else if (this.col.relative != null) {
+      j = col + this.col.relative;
+    } else {
+      throw new Error("Unreachable");
+    }
+
+    return cells[i][j].value;
   }
 }
 
@@ -179,7 +212,81 @@ class Range extends Expression {
   }
 
   compute(cells, row, col, variables) {
-    throw new Error("Not yet implemented");
+    let startRow, endRow;
+    let startCol, endCol;
+
+    if (this.startRow == null) {
+      startRow = row;
+    } else if (this.startRow.absolute != null) {
+      const r = this.startRow.absolute;
+      if (r < 0) {
+        startRow = (r + cells.length) % cells.length;
+      } else {
+        startRow = r;
+      }
+    } else if (this.startRow.relative != null) {
+      startRow = row + this.startRow.relative;
+    } else {
+      throw new Error("Unreachable");
+    }
+
+    if (this.startCol == null) {
+      startCol = col;
+    } else if (this.startCol.absolute != null) {
+      const c = this.startCol.absolute;
+      if (c < 0) {
+        startCol = (c + cells[0].length) % cells[0].length;
+      } else {
+        startCol = c;
+      }
+    } else if (this.startCol.relative != null) {
+      startCol = col + this.startCol.relative;
+    } else {
+      throw new Error("Unreachable");
+    }
+
+    if (this.endRow == null) {
+      endRow = row;
+    } else if (this.endRow.absolute != null) {
+      const r = this.endRow.absolute;
+      if (r < 0) {
+        endRow = (r + cells.length) % cells.length;
+      } else {
+        endRow = r;
+      }
+    } else if (this.endRow.relative != null) {
+      endRow = row + this.endRow.relative;
+    } else {
+      throw new Error("Unreachable");
+    }
+
+    if (this.endCol == null) {
+      endCol = col;
+    } else if (this.endCol.absolute != null) {
+      const c = this.endCol.absolute;
+      if (c < 0) {
+        endCol = (c + cells[0].length) % cells[0].length;
+      } else {
+        endCol = c;
+      }
+    } else if (this.endCol.relative != null) {
+      endCol = col + this.endCol.relative;
+    } else {
+      throw new Error("Unreachable");
+    }
+
+    return derived(
+      cells
+        .slice(startRow, endRow + 1)
+        .map((r) => r.slice(startCol, endCol + 1))
+        .flat()
+        .map(({ value }) => value),
+      (values, set) => {
+        return set(
+          reshape(values, endRow - startRow + 1, endCol - startCol + 1),
+        );
+      },
+    );
   }
 }
 
@@ -235,7 +342,10 @@ const cellNum = alt(relNum, absNum).optional();
 const ref = seq(regex(/[rR]/).then(cellNum), regex(/[cC]/).then(cellNum)).map(
   init(Reference),
 );
-const range = seq(ref.skip(lex(":")), ref).map(init(Range));
+const range = seq(
+  seq(regex(/[rR]/).then(cellNum), regex(/[cC]/).then(cellNum)).skip(lex(":")),
+  seq(regex(/[rR]/).then(cellNum), regex(/[cC]/).then(cellNum)),
+).map(init(Range));
 
 const value = lex(
   alt(

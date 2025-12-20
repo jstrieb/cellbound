@@ -47,16 +47,21 @@
   const rows = $state(
     new Array(3).fill().map(() => new Array(3).fill().map(() => new Cell())),
   );
+  const variables = $state({});
 
   $effect(() => {
-    for (const row of rows) {
-      for (const cell of row) {
+    for (let i = 0; i < rows.length; i++) {
+      const row = rows[i];
+      for (let j = 0; j < row.length; j++) {
+        const cell = row[j];
         $effect(() => {
           try {
             const parsed = formula.parse(cell.formula);
-            const computed = parsed?.compute ? parsed.compute() : parsed;
+            const computed = parsed?.compute
+              ? parsed.compute(rows, i, j, variables)
+              : parsed;
             if (computed.subscribe) {
-              cell.value.rederive([computed], ([x], _, set) => set(x));
+              cell.value.rederive([computed], ([x], set) => set(x));
             } else {
               cell.value.rederive([], (_, set) => set(computed));
             }
