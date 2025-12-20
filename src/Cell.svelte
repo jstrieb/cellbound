@@ -27,10 +27,18 @@
   .error {
     border: 2px solid red;
   }
+
+  .correct {
+    background: #e0ffe0;
+  }
+
+  .incorrect {
+    background: #ffe0e0;
+  }
 </style>
 
 <script>
-  let { cell, value } = $props();
+  let { cell, value, solution, input } = $props();
 </script>
 
 <td>
@@ -49,6 +57,8 @@
         min-height: 1.5rem; 
         white-space: pre;
       "
+      class:correct={input && $value == $solution}
+      class:incorrect={input && $value != $solution}
     >
       {#if cell.error}
         {cell.error}

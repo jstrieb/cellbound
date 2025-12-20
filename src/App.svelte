@@ -131,7 +131,7 @@
   {@html levels[currentLevel].text.trim()}
 </p>
 <div class="side-by-side">
-  {#each [solution, levelData] as rows}
+  {#each [solution, levelData] as rows, sheet}
     <div class="container">
       <table>
         <thead>
@@ -147,7 +147,12 @@
             <tr>
               <th>R{i}</th>
               {#each row as col, j}
-                <TableCell cell={rows[i][j]} value={rows[i][j].value} />
+                <TableCell
+                  cell={rows[i][j]}
+                  value={rows[i][j].value}
+                  solution={solution[i][j].value}
+                  input={sheet == 1}
+                />
               {/each}
             </tr>
           {/each}
