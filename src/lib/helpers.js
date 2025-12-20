@@ -1,9 +1,9 @@
-export function debounce(f, delay, max = undefined) {
+export function debounce(f, delay, max = Infinity) {
   let t;
   let iterations = 0;
   return (...args) => {
     clearTimeout(t);
-    if (max != null && iterations > max) {
+    if (iterations > max) {
       iterations = 0;
       f(...args);
     } else {

@@ -25,6 +25,7 @@
 <script>
   import TableCell from "./Cell.svelte";
   import { formula } from "./formula.js";
+  import { debounce } from "./lib/helpers.js";
   import { ParseError } from "./lib/parsers.js";
   import { rederivable } from "./lib/store.js";
 
@@ -61,7 +62,15 @@
               ? parsed.compute(rows, i, j, variables)
               : parsed;
             if (computed?.subscribe) {
-              cell.value.rederive([computed], ([x], set) => set(x));
+              let count = 0;
+              const resetCount = debounce(() => (count = 0), 10);
+              cell.value.rederive([computed], ([x], set) => {
+                // Prevent infinite loop from self-reference
+                if (count++ < 10) {
+                  resetCount();
+                  return set(x);
+                }
+              });
             } else {
               cell.value.rederive([], (_, set) => set(computed));
             }
