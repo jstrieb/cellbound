@@ -167,7 +167,7 @@ Ranges are designated by a start reference and end reference separated by a colo
 To complete this level, sum the preceding rows in the final cell.
 `,
     level: [
-      [{ formula: "=XORSHIFT(TICK(1000) + 1) % 100 + 1", hidden: true }],
+      [{ formula: "=XORSHIFT(TICK(2000) + 1) % 100 + 1", hidden: true }],
       [{ formula: "=XORSHIFT(R[-1]C) % 100 + 1", hidden: true }],
       [{ formula: "=XORSHIFT(R[-1]C) % 100 + 1", hidden: true }],
       [{ formula: "=XORSHIFT(R[-1]C) % 100 + 1", hidden: true }],
@@ -176,7 +176,7 @@ To complete this level, sum the preceding rows in the final cell.
       [undefined],
     ],
     solution: [
-      ["=XORSHIFT(TICK(1000) + 1) % 100 + 1"],
+      ["=XORSHIFT(TICK(2000) + 1) % 100 + 1"],
       ["=XORSHIFT(R[-1]C) % 100 + 1"],
       ["=XORSHIFT(R[-1]C) % 100 + 1"],
       ["=XORSHIFT(R[-1]C) % 100 + 1"],
