@@ -37,4 +37,15 @@ Formulas begin with the <code>=</code> symbol. They can contain math, numbers, a
       [{ formula: "=LOG(2 ** 16) / LOG(2)", hidden: false }],
     ],
   },
+  {
+    text: `
+Formulas can operate on numbers, booleans, and strings.
+`,
+    level: [[undefined], [undefined], [undefined]],
+    solution: [
+      [{ formula: "=!true || !false && !!true", hidden: false }],
+      [{ formula: `="Cat sat on " + "hat"`, hidden: false }],
+      [{ formula: `=IF(!true, "hat", "mat")`, hidden: false }],
+    ],
+  },
 ];
