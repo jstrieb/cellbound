@@ -70,19 +70,27 @@
     error;
     locked;
     hidden;
+    style;
+    nocheck;
 
     constructor(formula, locked = false, hidden = false) {
+      let style;
+      let nocheck;
       if (typeof formula != "string") {
         locked = formula?.locked ?? locked;
         hidden = formula?.hidden ?? hidden;
+        style = formula?.style;
+        nocheck = formula?.nocheck;
         formula = formula?.formula ?? formula;
       }
-
-      this.formula = $state(formula);
-      this.error = $state();
-      this.value = rederivable(undefined);
       this.locked = $state(locked);
       this.hidden = $state(hidden);
+      this.style = $state(style);
+      this.nocheck = $state(nocheck);
+      this.formula = $state(formula);
+
+      this.error = $state();
+      this.value = rederivable();
     }
 
     toString() {
@@ -158,6 +166,7 @@
   let solved = derived(
     [levelData, solution]
       .flat(2)
+      .filter(({ nocheck }) => !nocheck)
       .map(({ value }) => value)
       .filter((x) => x),
     (values, set) => {
@@ -169,9 +178,11 @@
 </script>
 
 <div class="button-bar">
-  <button onclick={() => currentLevel--} disabled={0 >= currentLevel}>
-    &larr; Previous Level
-  </button>
+  {#if 0 < currentLevel}
+    <button onclick={() => currentLevel--}> &larr; Previous Level </button>
+  {:else}
+    <span></span>
+  {/if}
   <h1 style="text-align: center;">Level {currentLevel + 1}</h1>
   {#if currentLevel < levels.length - 1}
     <button
@@ -180,6 +191,8 @@
     >
       Next Level &rarr;
     </button>
+  {:else}
+    <span></span>
   {/if}
 </div>
 <p style="white-space: pre-wrap; hyphens: auto;">

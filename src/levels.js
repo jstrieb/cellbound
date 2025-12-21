@@ -56,7 +56,7 @@ Formulas can operate on numbers, booleans, and strings.
   },
   {
     text: `
-Formulas can contain references. References have the form <code>R0C0</code> where <code>0</code> can be replaced with a row or column number. 
+Formulas can contain references. References have the form <code>R0C0</code> where <code>0</code> can be replaced with a row or column number. Indices start at 0. Negative indices go from the final row or column.
 
 The row and/or column can be omitted to refer to the current row or column. <code>RC</code> can be used for self-reference.
 `,
@@ -67,12 +67,65 @@ The row and/or column can be omitted to refer to the current row or column. <cod
         { formula: "2", hidden: false },
       ],
       [
-        { formula: "=R0C1", hidden: false },
+        { formula: "=R0C-1", hidden: false },
         { formula: "=R0C0", hidden: false },
       ],
       [
         { formula: "=R0C0 * R0C1", hidden: false },
-        { formula: "=RC0 * R1C1", hidden: false },
+        { formula: "=RC0 * R0C1 + 1", hidden: false },
+      ],
+    ],
+  },
+  {
+    text: `
+The previous level introduced absolute references like <code>R10C2</code>. 
+
+Formula references can also be relative, rather than absolute. Relative references are encosed in square brackets. So one cell to the right in the same row is <code>RC[1]</code> and one cell in the current column and row above is <code>R[-1]C</code>.
+`,
+    level: empty(3, 2),
+    solution: [
+      [
+        { formula: "1", hidden: false },
+        { formula: "2", hidden: false },
+      ],
+      [
+        { formula: "=R[-1]C1", hidden: false },
+        { formula: "=R[-1]C[-1]", hidden: false },
+      ],
+      [
+        { formula: "=R[-2]C * R[-2]C[1]", hidden: false },
+        { formula: "=RC[-1] ** R-1C-2 + 1", hidden: false },
+      ],
+    ],
+  },
+  {
+    text: `
+Now that you know how basic formulas and references work, it's time for the first challenge.
+
+Guess the mystery function based on its outputs.
+`,
+    level: [
+      [{ formula: "=TICK(100) / 10", locked: true }],
+      [undefined],
+      [
+        {
+          formula: "=SPARKBARS(CACHE(15, R[-1]C))",
+          style: "font-family: monospace, monospace",
+          locked: true,
+          nocheck: true,
+        },
+      ],
+    ],
+    solution: [
+      [{ formula: "=TICK(100) / 10", hidden: false }],
+      ["=SIN(R[-1]C)"],
+      [
+        {
+          formula: "=SPARKBARS(CACHE(15, R[-1]C))",
+          hidden: false,
+          style: "font-family: monospace, monospace",
+          nocheck: true,
+        },
       ],
     ],
   },

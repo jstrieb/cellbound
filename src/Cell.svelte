@@ -56,9 +56,10 @@
         padding: 0.25rem; 
         min-height: 1.5rem; 
         white-space: pre;
+        {cell.style}
       "
-      class:correct={input && $value == $solution}
-      class:incorrect={input && $value != $solution}
+      class:correct={input && (cell.nocheck || $value == $solution)}
+      class:incorrect={input && !cell.nocheck && $value != $solution}
     >
       {#if cell.error}
         {cell.error}
