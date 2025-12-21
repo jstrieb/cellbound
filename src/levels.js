@@ -79,7 +79,7 @@ A variation of this notation is available in other spreadsheets like Microsoft E
         { formula: "=R0C0", hidden: false },
       ],
       [
-        { formula: "=R0C0 * R0C1", hidden: false },
+        { formula: "=R0C0 + R0C1", hidden: false },
         { formula: "=RC0 * R0C1 + 1", hidden: false },
       ],
     ],
@@ -102,7 +102,7 @@ Formula references can also be relative, rather than absolute. Relative referenc
         { formula: "=R[-1]C[-1]", hidden: false },
       ],
       [
-        { formula: "=R[-2]C * R[-2]C[1]", hidden: false },
+        { formula: "=R[-2]C + R[-2]C[1]", hidden: false },
         { formula: "=RC[-1] ** R-1C-2 + 1", hidden: false },
       ],
     ],
