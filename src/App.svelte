@@ -116,8 +116,8 @@
   $effect(() => window.localStorage.setItem("level", maxLevel));
   let level = $derived(levels[currentLevel]);
 
-  for (const rows of [levelData, solution]) {
-    $effect(() => {
+  $effect(() => {
+    for (const rows of [levelData, solution]) {
       for (let i = 0; i < rows.length; i++) {
         const row = rows[i];
         for (let j = 0; j < row.length; j++) {
@@ -152,8 +152,8 @@
           });
         }
       }
-    });
-  }
+    }
+  });
 
   let solved = derived(
     [levelData, solution]
