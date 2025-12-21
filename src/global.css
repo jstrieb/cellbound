@@ -78,3 +78,9 @@ details > summary {
   user-select: none;
   -webkit-user-select: none;
 }
+
+pre {
+  font-family: monospace, monospace;
+  overflow: auto;
+  white-space: pre;
+}

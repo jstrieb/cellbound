@@ -59,6 +59,7 @@
   import TableCell from "./Cell.svelte";
   import { levels } from "./levels.js";
   import { formula } from "./formula.js";
+  import { functions } from "./formula-functions.js";
   import { debounce } from "./lib/helpers.js";
   import { ParseError } from "./lib/parsers.js";
   import { rederivable } from "./lib/store.js";
@@ -248,3 +249,13 @@
     <button onclick={() => currentLevel++}>Next level &rarr;</button>
   {/if}
 {/if}
+
+<details style="margin-top: 1rem;">
+  <summary>Formula Function Reference</summary>
+  {#each Object.entries(functions) as [name, f]}
+    <details>
+      <summary>{name}</summary>
+      <pre>{f.toString()}</pre>
+    </details>
+  {/each}
+</details>
