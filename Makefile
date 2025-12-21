@@ -1,7 +1,7 @@
 .PHONY: build dev lint pre-commit-check pre-commit-lint install-pre-commit deps
 
 cellbound.zip: index.html src | build
-	(cd dist; zip -r '../$@' *)
+	rm -f '$@'; (cd dist; zip -r '../$@' *)
 
 build: | node_modules
 	npx vite build
