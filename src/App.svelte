@@ -34,6 +34,21 @@
   button {
     padding: 0.25rem;
     cursor: pointer;
+    white-space: pre;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+    background: #f0f0f0;
+  }
+
+  .button-bar {
+    width: 100%;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr minmax(150px, 1fr) 1fr;
+    align-items: center;
+    margin-bottom: 1rem;
   }
 </style>
 
@@ -89,8 +104,13 @@
   );
   const variables = $state({});
 
-  let currentLevel = $state(window.localStorage.getItem("level") ?? 0);
-  $effect(() => window.localStorage.setItem("level", currentLevel));
+  let currentLevel = $state(
+    parseInt(window.localStorage.getItem("level") ?? 0),
+  );
+  let maxLevel = $state(currentLevel);
+  // Derived runes cannot self-reference :(
+  $effect(() => (maxLevel = Math.max(maxLevel, currentLevel)));
+  $effect(() => window.localStorage.setItem("level", maxLevel));
   let level = $derived(levels[currentLevel]);
 
   for (const rows of [levelData, solution]) {
@@ -145,6 +165,16 @@
   );
 </script>
 
+<div class="button-bar">
+  <button onclick={() => currentLevel--} disabled={0 >= currentLevel}
+    >&larr; Previous Level</button
+  >
+  <h1 style="text-align: center;">Level {currentLevel + 1}</h1>
+  <button
+    onclick={() => currentLevel++}
+    disabled={!($solved || currentLevel < maxLevel)}>Next Level &rarr;</button
+  >
+</div>
 <p style="white-space: pre-wrap; hyphens: auto;">
   {@html level.text.trim()}
 </p>
@@ -195,6 +225,6 @@
     {/if}
   </p>
   {#if currentLevel < levels.length - 1}
-    <button onclick={() => currentLevel++}>Next level...</button>
+    <button onclick={() => currentLevel++}>Next level &rarr;</button>
   {/if}
 {/if}

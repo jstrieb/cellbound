@@ -35,11 +35,11 @@ body {
 }
 
 body {
-  padding: 0.5em;
+  padding: 2rem 0.5rem;
+  max-width: 512px;
+  margin: auto;
   /* Fall back on vh units if dvh doesn't work (i.e., not on mobile). */
-  height: 100vh;
   min-height: 100vh;
-  height: 100dvh;
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
