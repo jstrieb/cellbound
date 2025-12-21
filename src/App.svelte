@@ -169,14 +169,18 @@
 </script>
 
 <div class="button-bar">
-  <button onclick={() => currentLevel--} disabled={0 >= currentLevel}
-    >&larr; Previous Level</button
-  >
+  <button onclick={() => currentLevel--} disabled={0 >= currentLevel}>
+    &larr; Previous Level
+  </button>
   <h1 style="text-align: center;">Level {currentLevel + 1}</h1>
-  <button
-    onclick={() => currentLevel++}
-    disabled={!($solved || currentLevel < maxLevel)}>Next Level &rarr;</button
-  >
+  {#if currentLevel < levels.length - 1}
+    <button
+      onclick={() => currentLevel++}
+      disabled={!($solved || currentLevel < maxLevel)}
+    >
+      Next Level &rarr;
+    </button>
+  {/if}
 </div>
 <p style="white-space: pre-wrap; hyphens: auto;">
   {@html level.text.trim()}
@@ -187,7 +191,7 @@
       <table>
         <thead>
           <tr
-            ><td colspan="2">
+            ><td colspan="999999">
               {#if sheet == 0}
                 Desired output
               {:else if sheet == 1}
