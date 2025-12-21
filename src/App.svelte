@@ -256,12 +256,26 @@
 
 <details style="margin-top: 1rem;">
   <summary>Formula Function Reference</summary>
-  {#each Object.entries(functions) as [name, f]}
-    <details>
-      <summary>{name}</summary>
-      <pre>{f.toString()}</pre>
-    </details>
-  {/each}
+  <div style="padding-left: 1rem;">
+    <ul>
+      {#each Object.entries(functions) as [name, f]}
+        {#if f.toString().match(/native code/i)}
+          <li><code style="background: none;">{name}</code></li>
+        {:else}
+          <li style="list-style: none; margin: 0 -0.9rem;">
+            <details>
+              <summary><code style="background: none;">{name}</code></summary>
+              <div
+                style="border-left: 1px solid var(--fg-color); margin-left: 0.3rem; padding-left: 0.7rem;"
+              >
+                <pre>{f.toString()}</pre>
+              </div>
+            </details>
+          </li>
+        {/if}
+      {/each}
+    </ul>
+  </div>
 </details>
 
 <div style="min-height: 50vh">

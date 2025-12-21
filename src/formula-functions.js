@@ -2,16 +2,16 @@ export const functions = {};
 
 Object.getOwnPropertyNames(Math)
   .filter((n) => typeof Math[n] === "function")
-  .forEach(
-    (n) =>
-      (functions[n] = (...args) => {
-        if (args.some((s) => typeof s == "string")) {
-          return Math[n](...args.map((arg) => arg ?? ""));
-        } else {
-          return Math[n](...args.map((arg) => arg ?? 0));
-        }
-      }),
-  );
+  .forEach((n) => {
+    functions[n] = (...args) => {
+      if (args.some((s) => typeof s == "string")) {
+        return Math[n](...args.map((arg) => arg ?? ""));
+      } else {
+        return Math[n](...args.map((arg) => arg ?? 0));
+      }
+    };
+    functions[n].toString = () => Math[n].toString();
+  });
 
 functions.sum = (...args) =>
   args.flat(Infinity).reduce((a, x) => a + (x ?? 0), 0);
