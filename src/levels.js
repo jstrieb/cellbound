@@ -8,6 +8,9 @@ Welcome!
 Your goal is to edit each formula so that the cell values match the output.
 
 You will learn the spreadsheet formula language as you go.
+
+<hr />
+Cells can contain numbers. They can be in decimal, hexadecimal (<code>0x</code> prefix), or binary (<code>0b</code> prefix).
 `,
     level: [["3"], ["2"], ["1"], [undefined]],
     solution: [
@@ -19,5 +22,19 @@ You will learn the spreadsheet formula language as you go.
     endText: `
 When everything matches, you can proceed to the next level...
 `,
+  },
+  {
+    text: `
+Cells may contain formulas. 
+
+Formulas begin with the <code>=</code> symbol. They can contain math, numbers, and functions. Any of the standard JavaScript <code>Math</code> functions will work.
+`,
+    level: [[undefined], [undefined], [undefined], [undefined]],
+    solution: [
+      [{ formula: "=1 + 1", hidden: false }],
+      [{ formula: "=2 * 3 + 4", hidden: false }],
+      [{ formula: "=(1+2) * (3 + 2**2)", hidden: false }],
+      [{ formula: "=LOG(2 ** 16) / LOG(2)", hidden: false }],
+    ],
   },
 ];
