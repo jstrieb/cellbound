@@ -19,6 +19,7 @@
   line-height: inherit;
   touch-action: manipulation;
   appearance: none;
+  overscroll-behvior: none;
 }
 
 *:focus {
