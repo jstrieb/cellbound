@@ -36,6 +36,7 @@
   import Table from "./Table.svelte";
   import { levels } from "./levels.js";
   import { functions } from "./formula-functions.js";
+  import { debounce } from "./lib/helpers.js";
   import { rederivable } from "./lib/store.js";
   import { derived } from "svelte/store";
 
@@ -82,8 +83,22 @@
     window.scrollTo(0, 0);
   });
 
+  let saved = $derived(
+    JSON.parse(window.localStorage.getItem(`level${currentLevel}`) ?? "[]"),
+  );
+  const save = debounce(
+    (o) =>
+      window.localStorage.setItem(`level${currentLevel}`, JSON.stringify(o)),
+    300,
+  );
+  $effect(() => {
+    save(levelData.map((row) => row.map(({ formula }) => formula)));
+  });
+
   const levelData = $derived(
-    level.level.map((row) => row.map((cell) => new Cell(cell))),
+    level.level.map((row, i) =>
+      row.map((cell, j) => new Cell(cell ?? saved?.[i]?.[j])),
+    ),
   );
   const solution = $derived(
     level.solution.map((row) =>
