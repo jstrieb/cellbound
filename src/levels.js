@@ -113,7 +113,7 @@ Does the shape of the curve remind you of anything? Perhaps a common trigonometr
       [undefined],
       [
         {
-          formula: "=SPARKBARS(CACHE(15, R[-1]C))",
+          formula: "=SPARKBARS(CACHE(20, R[-1]C))",
           style: "font-family: monospace, monospace",
           locked: true,
           nocheck: true,
@@ -125,7 +125,7 @@ Does the shape of the curve remind you of anything? Perhaps a common trigonometr
       ["=SIN(R[-1]C)"],
       [
         {
-          formula: "=SPARKBARS(CACHE(15, R[-1]C))",
+          formula: "=SPARKBARS(CACHE(20, R[-1]C))",
           hidden: false,
           style: "font-family: monospace, monospace",
           nocheck: true,
