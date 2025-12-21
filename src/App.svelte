@@ -73,6 +73,7 @@
     hidden;
     style;
     nocheck;
+    valueHidden;
     value;
     error;
 
@@ -85,6 +86,7 @@
       this.hidden = $state(cell?.hidden ?? false);
       this.style = $state(cell?.style ?? "");
       this.nocheck = $state(cell?.nocheck ?? false);
+      this.valueHidden = $state(cell?.valueHidden ?? false);
 
       this.value = rederivable();
       this.error = $state();

@@ -62,9 +62,11 @@ Formulas can operate on numbers, booleans, and strings.
 
   {
     text: `
-Formulas can contain references. References have the form <code>R0C0</code> where <code>0</code> can be replaced with a row or column number. Indices start at 0. Negative indices go from the final row or column.
+Formulas can contain references. References have the form <code>R1C1</code> where <code>1</code> can be replaced with a row or column number. Indices start at 0. Negative indices go from the final row or column.
 
 The row and/or column can be omitted to refer to the current row or column. <code>RC</code> can be used for self-reference.
+
+A variation of this notation is available in other spreadsheets like Microsoft Excel and Google Sheets. (It is typically how formulas are represented internally in these engines, and can optionally be exposed to the user.) It is known as <a href="https://en.wikipedia.org/wiki/Spreadsheet#Cell_reference" target="_blank">R1C1 reference style</a>.
 `,
     level: empty(3, 2),
     solution: [
@@ -143,5 +145,30 @@ Does the shape of the curve remind you of anything? Perhaps a common trigonometr
     endText: `
 Amaing job! This one may have been tricky if you don't remember trigonometry.
 `,
+  },
+  {
+    text: `
+The final spreadsheet formula lanugage feature to introduce is range selection. 
+
+Ranges are designated by a start reference and end reference separated by a colon, like <code>RC0:RC[-1]</code>. The start and end are inclusive.
+`,
+    level: [
+      [{ formula: "=XORSHIFT(TICK(1000) + 1) % 100", hidden: true }],
+      [{ formula: "=XORSHIFT(R[-1]C) % 100", hidden: true }],
+      [{ formula: "=XORSHIFT(R[-1]C) % 100", hidden: true }],
+      [{ formula: "=XORSHIFT(R[-1]C) % 100", hidden: true }],
+      [{ formula: "=XORSHIFT(R[-1]C) % 100", hidden: true }],
+      [{ formula: "=XORSHIFT(R[-1]C) % 100", hidden: true }],
+      [undefined],
+    ],
+    solution: [
+      ["=XORSHIFT(TICK(1000) + 1) % 100"],
+      ["=XORSHIFT(R[-1]C) % 100"],
+      ["=XORSHIFT(R[-1]C) % 100"],
+      ["=XORSHIFT(R[-1]C) % 100"],
+      ["=XORSHIFT(R[-1]C) % 100"],
+      ["=XORSHIFT(R[-1]C) % 100"],
+      [{ formula: "=SUM(R0C:R[-1]C)", hidden: false, valueHidden: true }],
+    ],
   },
 ];

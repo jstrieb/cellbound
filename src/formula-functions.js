@@ -58,3 +58,10 @@ functions.cache = function (n, x) {
   while (cache[k].length > n) cache[k].shift();
   return cache[k];
 };
+
+functions.xorshift = (x) => {
+  x ^= x << 13;
+  x ^= x >> 17;
+  x ^= x << 5;
+  return x;
+};
