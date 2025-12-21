@@ -15,6 +15,13 @@
     padding: 0.25rem;
   }
 
+  td {
+    border: 1px solid var(--fg-color);
+    padding: 0.5rem;
+    text-align: center;
+    vertical-align: middle;
+  }
+
   .side-by-side {
     display: flex;
     flex-direction: row;
@@ -22,11 +29,9 @@
     align-items: flex-start;
     justify-content: flex-start;
     gap: 1rem;
-    margin: 1rem 0;
   }
 
   button {
-    margin: 1rem 0;
     padding: 0.25rem;
     cursor: pointer;
   }
@@ -39,6 +44,7 @@
   import { debounce } from "./lib/helpers.js";
   import { ParseError } from "./lib/parsers.js";
   import { rederivable } from "./lib/store.js";
+  import { derived } from "svelte/store";
 
   class Cell {
     formula;
@@ -66,7 +72,6 @@
     }
   }
 
-  // new Array(3).fill().map(() => new Array(3).fill().map(() => new Cell()))
   const levelData = $derived(
     level.level.map((row) => row.map((cell) => new Cell(cell))),
   );
@@ -84,7 +89,8 @@
   );
   const variables = $state({});
 
-  let currentLevel = $state(0);
+  let currentLevel = $state(window.localStorage.getItem("level") ?? 0);
+  $effect(() => window.localStorage.setItem("level", currentLevel));
   let level = $derived(levels[currentLevel]);
 
   for (const rows of [levelData, solution]) {
@@ -125,16 +131,37 @@
       }
     });
   }
+
+  let solved = derived(
+    [levelData, solution]
+      .flat(2)
+      .map(({ value }) => value)
+      .filter((x) => x),
+    (values, set) => {
+      if (values.length % 2 != 0) throw new Error("Incorrect data length");
+      const length = values.length / 2;
+      set(values.slice(length).every((x, i) => x == values[i]));
+    },
+  );
 </script>
 
 <p style="white-space: pre-wrap; hyphens: auto;">
-  {@html levels[currentLevel].text.trim()}
+  {@html level.text.trim()}
 </p>
 <div class="side-by-side">
   {#each [solution, levelData] as rows, sheet}
     <div class="container">
       <table>
         <thead>
+          <tr
+            ><td colspan="2">
+              {#if sheet == 0}
+                Desired output
+              {:else if sheet == 1}
+                Your input
+              {/if}
+            </td></tr
+          >
           <tr>
             <th></th>
             {#each rows[0] as _, i}
@@ -161,3 +188,13 @@
     </div>
   {/each}
 </div>
+{#if $solved}
+  <p style="white-space: pre-wrap; hyphens: auto;">
+    {#if level.endText}
+      {@html level.endText.trim()}
+    {/if}
+  </p>
+  {#if currentLevel < levels.length - 1}
+    <button onclick={() => currentLevel++}>Next level...</button>
+  {/if}
+{/if}

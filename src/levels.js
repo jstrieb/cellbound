@@ -16,5 +16,8 @@ You will learn the spreadsheet formula language as you go.
       [{ formula: "0b101", hidden: false }],
       ["=256 ** 2"],
     ],
+    endText: `
+When everything matches, you can proceed to the next level...
+`,
   },
 ];
