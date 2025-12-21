@@ -67,31 +67,25 @@
 
   class Cell {
     formula;
-    value;
-    error;
     locked;
     hidden;
     style;
     nocheck;
+    value;
+    error;
 
-    constructor(formula, locked = false, hidden = false) {
-      let style;
-      let nocheck;
-      if (typeof formula != "string") {
-        locked = formula?.locked ?? locked;
-        hidden = formula?.hidden ?? hidden;
-        style = formula?.style;
-        nocheck = formula?.nocheck;
-        formula = formula?.formula ?? formula;
+    constructor(cell) {
+      if (typeof cell == "string") {
+        cell = { formula: cell };
       }
-      this.locked = $state(locked);
-      this.hidden = $state(hidden);
-      this.style = $state(style);
-      this.nocheck = $state(nocheck);
-      this.formula = $state(formula);
+      this.formula = $state(cell?.formula);
+      this.locked = $state(cell?.locked ?? false);
+      this.hidden = $state(cell?.hidden ?? false);
+      this.style = $state(cell?.style ?? "");
+      this.nocheck = $state(cell?.nocheck ?? false);
 
-      this.error = $state();
       this.value = rederivable();
+      this.error = $state();
     }
 
     toString() {
