@@ -123,6 +123,10 @@
   // Derived runes cannot self-reference :(
   $effect(() => (maxLevel = Math.max(maxLevel, currentLevel)));
   $effect(() => window.localStorage.setItem("level", maxLevel));
+  $effect(() => {
+    level;
+    window.scrollTo(0, 0);
+  });
   let level = $derived(levels[currentLevel]);
 
   $effect(() => {
@@ -259,3 +263,7 @@
     </details>
   {/each}
 </details>
+
+<div style="min-height: 90vh">
+  <!-- Padding for mobile keyboard convenience -->
+</div>

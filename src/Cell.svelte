@@ -48,7 +48,11 @@
     {:else if cell.locked}
       <input type="text" bind:value={cell.formula} disabled />
     {:else}
-      <input type="text" bind:value={cell.formula} />
+      <input
+        type="text"
+        bind:value={cell.formula}
+        onfocus={(e) => e.target.select()}
+      />
     {/if}
     <p
       class:error={cell.error}
