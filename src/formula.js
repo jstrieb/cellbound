@@ -392,7 +392,7 @@ const value = lex(
     range,
     ref,
     fun,
-    identifier.map(init(Variable)),
+    // identifier.map(init(Variable)),
     lex("(").then(expression).skip(lex(")")),
   ),
 );

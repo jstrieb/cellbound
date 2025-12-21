@@ -28,9 +28,11 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     gap: 1rem;
+    margin: auto;
+    max-width: 100%;
   }
 
   button {
@@ -162,23 +164,25 @@
     }
   });
 
-  let solved = derived(
-    [levelData, solution]
-      .flat(2)
-      .filter(({ nocheck }) => !nocheck)
-      .map(({ value }) => value)
-      .filter((x) => x),
-    (values, set) => {
-      if (values.length % 2 != 0) throw new Error("Incorrect data length");
-      const length = values.length / 2;
-      set(values.slice(length).every((x, i) => x == values[i]));
-    },
+  let solved = $derived(
+    derived(
+      [levelData, solution]
+        .flat(2)
+        .filter(({ nocheck }) => !nocheck)
+        .map(({ value }) => value)
+        .filter((x) => x),
+      (values, set) => {
+        if (values.length % 2 != 0) throw new Error("Incorrect data length");
+        const length = values.length / 2;
+        set(values.slice(length).every((x, i) => x == values[i]));
+      },
+    ),
   );
 </script>
 
 <div class="button-bar">
   {#if 0 < currentLevel}
-    <button onclick={() => currentLevel--}> &larr; Previous Level </button>
+    <button onclick={() => currentLevel--}> &larr; Previous </button>
   {:else}
     <span></span>
   {/if}
@@ -188,7 +192,7 @@
       onclick={() => currentLevel++}
       disabled={!($solved || currentLevel < maxLevel)}
     >
-      Next Level &rarr;
+      Next &rarr;
     </button>
   {:else}
     <span></span>
@@ -197,7 +201,7 @@
 <p style="white-space: pre-wrap; hyphens: auto;">
   {@html level.text.trim()}
 </p>
-<div class="side-by-side">
+<div class="side-by-side wide">
   {#each [solution, levelData] as rows, sheet}
     <div class="container">
       <table>
@@ -258,6 +262,6 @@
   {/each}
 </details>
 
-<div style="min-height: 90vh">
+<div style="min-height: 50vh">
   <!-- Padding for mobile keyboard convenience -->
 </div>

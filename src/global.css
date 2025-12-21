@@ -35,8 +35,8 @@ body {
 }
 
 body {
+  max-width: 100vw;
   padding: 2rem 0.5rem;
-  max-width: 512px;
   margin: auto;
   /* Fall back on vh units if dvh doesn't work (i.e., not on mobile). */
   min-height: 100vh;
@@ -46,6 +46,12 @@ body {
   justify-content: flex-start;
   align-items: flex-start;
   gap: 1rem;
+}
+
+body > :not(.wide) {
+  width: 100%;
+  max-width: 512px;
+  margin: auto;
 }
 
 button {

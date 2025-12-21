@@ -18,7 +18,7 @@ You will learn the spreadsheet formula language as you go.
 <hr />
 Cells can contain numbers. They can be in decimal, hexadecimal (<code>0x</code> prefix), or binary (<code>0b</code> prefix).
 `,
-    level: [["3"], ["2"], ["1"], [undefined]],
+    level: empty(4, 1),
     solution: [
       [{ formula: "-1", hidden: false }],
       [{ formula: "0x10", hidden: false }],
@@ -29,6 +29,7 @@ Cells can contain numbers. They can be in decimal, hexadecimal (<code>0x</code> 
 When everything matches, you can proceed to the next level...
 `,
   },
+
   {
     text: `
 Cells may contain formulas. 
@@ -42,7 +43,11 @@ Formulas begin with the <code>=</code> symbol. They can contain math, numbers, a
       [{ formula: "=(1+2) * (3 + 2**2)", hidden: false }],
       [{ formula: "=LOG(2 ** 16) / LOG(2)", hidden: false }],
     ],
+    endText: `
+Expand the list below to see all of the available formula functions.
+`,
   },
+
   {
     text: `
 Formulas can operate on numbers, booleans, and strings.
@@ -54,6 +59,7 @@ Formulas can operate on numbers, booleans, and strings.
       [{ formula: `=IF(!true, "hat", "mat")`, hidden: false }],
     ],
   },
+
   {
     text: `
 Formulas can contain references. References have the form <code>R0C0</code> where <code>0</code> can be replaced with a row or column number. Indices start at 0. Negative indices go from the final row or column.
@@ -76,6 +82,7 @@ The row and/or column can be omitted to refer to the current row or column. <cod
       ],
     ],
   },
+
   {
     text: `
 The previous level introduced absolute references like <code>R10C2</code>. 
@@ -98,6 +105,7 @@ Formula references can also be relative, rather than absolute. Relative referenc
       ],
     ],
   },
+
   {
     text: `
 Now that you know how basic formulas and references work, it's time for the first challenge.
