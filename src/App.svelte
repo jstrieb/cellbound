@@ -3,10 +3,12 @@
     max-width: 100%;
     max-height: 100%;
     overflow: auto;
+    flex-grow: 1;
   }
 
   table {
     border-collapse: collapse;
+    width: 100%;
   }
 
   th {
@@ -26,8 +28,8 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    align-items: flex-start;
     justify-content: flex-start;
+    align-items: center;
     gap: 1rem;
   }
 
@@ -35,6 +37,7 @@
     padding: 0.25rem;
     cursor: pointer;
     white-space: pre;
+    min-width: max-content;
   }
 
   button:disabled {
@@ -46,7 +49,7 @@
     width: 100%;
     display: grid;
     gap: 1rem;
-    grid-template-columns: 1fr minmax(150px, 1fr) 1fr;
+    grid-template-columns: repeat(3, 1fr);
     align-items: center;
     margin-bottom: 1rem;
   }
