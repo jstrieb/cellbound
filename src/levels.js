@@ -151,24 +151,26 @@ Amaing job! This one may have been tricky if you don't remember trigonometry.
 The final spreadsheet formula lanugage feature to introduce is range selection. 
 
 Ranges are designated by a start reference and end reference separated by a colon, like <code>RC0:RC[-1]</code>. The start and end are inclusive.
+
+To complete this level, sum the preceding rows in the final cell.
 `,
     level: [
-      [{ formula: "=XORSHIFT(TICK(1000) + 1) % 100", hidden: true }],
-      [{ formula: "=XORSHIFT(R[-1]C) % 100", hidden: true }],
-      [{ formula: "=XORSHIFT(R[-1]C) % 100", hidden: true }],
-      [{ formula: "=XORSHIFT(R[-1]C) % 100", hidden: true }],
-      [{ formula: "=XORSHIFT(R[-1]C) % 100", hidden: true }],
-      [{ formula: "=XORSHIFT(R[-1]C) % 100", hidden: true }],
+      [{ formula: "=XORSHIFT(TICK(1000) + 1) % 100", locked: true }],
+      [{ formula: "=XORSHIFT(R[-1]C) % 100", locked: true }],
+      [{ formula: "=XORSHIFT(R[-1]C) % 100", locked: true }],
+      [{ formula: "=XORSHIFT(R[-1]C) % 100", locked: true }],
+      [{ formula: "=XORSHIFT(R[-1]C) % 100", locked: true }],
+      [{ formula: "=XORSHIFT(R[-1]C) % 100", locked: true }],
       [undefined],
     ],
     solution: [
-      ["=XORSHIFT(TICK(1000) + 1) % 100"],
-      ["=XORSHIFT(R[-1]C) % 100"],
-      ["=XORSHIFT(R[-1]C) % 100"],
-      ["=XORSHIFT(R[-1]C) % 100"],
-      ["=XORSHIFT(R[-1]C) % 100"],
-      ["=XORSHIFT(R[-1]C) % 100"],
-      [{ formula: "=SUM(R0C:R[-1]C)", hidden: false, valueHidden: true }],
+      [{ formula: "=XORSHIFT(TICK(1000) + 1) % 100", hidden: false }],
+      [{ formula: "=XORSHIFT(R[-1]C) % 100", hidden: false }],
+      [{ formula: "=XORSHIFT(R[-1]C) % 100", hidden: false }],
+      [{ formula: "=XORSHIFT(R[-1]C) % 100", hidden: false }],
+      [{ formula: "=XORSHIFT(R[-1]C) % 100", hidden: false }],
+      [{ formula: "=XORSHIFT(R[-1]C) % 100", hidden: false }],
+      [{ formula: "=SUM(R0C:R[-1]C)", hidden: true }],
     ],
   },
 ];
