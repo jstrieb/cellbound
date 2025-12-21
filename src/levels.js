@@ -103,6 +103,10 @@ Formula references can also be relative, rather than absolute. Relative referenc
 Now that you know how basic formulas and references work, it's time for the first challenge.
 
 Guess the mystery function based on its outputs.
+
+<details><summary>Hint</summary>
+Does the shape of the curve remind you of anything? Perhaps a common trigonometric function?
+</details>
 `,
     level: [
       [{ formula: "=TICK(100) / 10", locked: true }],
