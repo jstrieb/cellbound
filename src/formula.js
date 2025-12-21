@@ -40,6 +40,8 @@ class Function extends Expression {
 
   constructor(name, args) {
     super();
+    if (!(name.toLowerCase() in functions))
+      throw new Error(`Unknown function "${name}"`);
     this.name = name;
     this.args = Array.from(args);
   }
@@ -224,7 +226,11 @@ class Reference extends Expression {
       throw new Error("Unreachable");
     }
 
-    return cells[i][j].value;
+    try {
+      return cells[i][j].value;
+    } catch {
+      throw new Error(`Invalid cell R${i}C${j}`);
+    }
   }
 }
 

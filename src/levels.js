@@ -132,5 +132,8 @@ Does the shape of the curve remind you of anything? Perhaps a common trigonometr
         },
       ],
     ],
+    endText: `
+Amaing job! This one may have been tricky if you don't remember trigonometry.
+`,
   },
 ];
