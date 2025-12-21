@@ -65,6 +65,8 @@
             }
             cell.value.rederive([], (_, set) => set(cell.formula));
           }
+          // Hack to force unsubscribing and cleaning up
+          return () => cell.value.rederive([], () => {});
         });
       }
     }
