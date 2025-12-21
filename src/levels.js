@@ -38,10 +38,10 @@ Formulas begin with the <code>=</code> symbol. They can contain math, numbers, a
 `,
     level: empty(4, 1),
     solution: [
-      [{ formula: "=1 + 1", hidden: false }],
-      [{ formula: "=2 * 3 + 4", hidden: false }],
-      [{ formula: "=(1+2) * (3 + 2**2)", hidden: false }],
-      [{ formula: "=LOG(2 ** 16) / LOG(2)", hidden: false }],
+      [{ formula: "=1 + 1", hidden: false, valueHidden: true }],
+      [{ formula: "=2 * 3 + 4", hidden: false, valueHidden: true }],
+      [{ formula: "=(1+2) * (3 + 2**2)", hidden: false, valueHidden: true }],
+      [{ formula: "=LOG(2 ** 16) / LOG(2)", hidden: false, valueHidden: true }],
     ],
     endText: `
 Expand the list below to see all of the available formula functions.
@@ -54,9 +54,21 @@ Formulas can operate on numbers, booleans, and strings.
 `,
     level: empty(3, 1),
     solution: [
-      [{ formula: "=!true || !false && !!true", hidden: false }],
-      [{ formula: `="Cat sat on " + "hat"`, hidden: false }],
-      [{ formula: `=IF(!true, "hat", "mat")`, hidden: false }],
+      [
+        {
+          formula: "=!true || !false && !!true",
+          hidden: false,
+          valueHidden: true,
+        },
+      ],
+      [{ formula: `="Cat sat on " + "hat"`, hidden: false, valueHidden: true }],
+      [
+        {
+          formula: `=IF(!true, "hat", "mat")`,
+          hidden: false,
+          valueHidden: true,
+        },
+      ],
     ],
   },
 
@@ -75,12 +87,12 @@ A variation of this notation is available in other spreadsheets like Microsoft E
         { formula: "2", hidden: false },
       ],
       [
-        { formula: "=R0C-1", hidden: false },
-        { formula: "=R0C0", hidden: false },
+        { formula: "=R0C-1", hidden: false, valueHidden: true },
+        { formula: "=R0C0", hidden: false, valueHidden: true },
       ],
       [
-        { formula: "=R0C0 + R0C1", hidden: false },
-        { formula: "=RC0 * R0C1 + 1", hidden: false },
+        { formula: "=R0C0 + R0C1", hidden: false, valueHidden: true },
+        { formula: "=RC0 * R0C1 + 1", hidden: false, valueHidden: true },
       ],
     ],
   },
@@ -98,12 +110,12 @@ Formula references can also be relative, rather than absolute. Relative referenc
         { formula: "2", hidden: false },
       ],
       [
-        { formula: "=R[-1]C1", hidden: false },
-        { formula: "=R[-1]C[-1]", hidden: false },
+        { formula: "=R[-1]C1", hidden: false, valueHidden: true },
+        { formula: "=R[-1]C[-1]", hidden: false, valueHidden: true },
       ],
       [
-        { formula: "=R[-2]C + R[-2]C[1]", hidden: false },
-        { formula: "=RC[-1] ** R-1C-2 + 1", hidden: false },
+        { formula: "=R[-2]C + R[-2]C[1]", hidden: false, valueHidden: true },
+        { formula: "=RC[-1] ** R-1C-2 + 1", hidden: false, valueHidden: true },
       ],
     ],
   },
