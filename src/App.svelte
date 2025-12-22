@@ -151,7 +151,7 @@
 </div>
 
 <p style="white-space: pre-wrap; hyphens: auto;">
-  {@html level.text.trim()}
+  {@html level.text?.trim?.()}
 </p>
 
 <div class="side-by-side wide">

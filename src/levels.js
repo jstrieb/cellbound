@@ -240,4 +240,36 @@ Not all of the duplicated cell puzzles will be as easy as the last one.
       [{ formula: "=SUM(R0C:R[-1]C)", hidden: false }],
     ],
   },
+
+  {
+    text: `
+<details><summary>Hint</summary>
+It might be worth reading up on the most famous contributions of the Italian mathematician <a href="https://en.wikipedia.org/wiki/Fibonacci">Fibonacci</a>.
+</details>
+`,
+    level: [
+      [undefined],
+      [undefined],
+      [undefined],
+      [{ reference: { row: 2 } }],
+      [{ reference: { row: 2 } }],
+      [{ reference: { row: 2 } }],
+      [{ reference: { row: 2 } }],
+      [{ reference: { row: 2 } }],
+      [{ reference: { row: 2 } }],
+      [{ reference: { row: 2 } }],
+    ],
+    solution: [
+      ["0"],
+      ["1"],
+      ["=R[-1]C + R[-2]C"],
+      ["=R[-1]C + R[-2]C"],
+      ["=R[-1]C + R[-2]C"],
+      ["=R[-1]C + R[-2]C"],
+      ["=R[-1]C + R[-2]C"],
+      ["=R[-1]C + R[-2]C"],
+      ["=R[-1]C + R[-2]C"],
+      ["=R[-1]C + R[-2]C"],
+    ],
+  },
 ];
