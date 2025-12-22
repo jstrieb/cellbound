@@ -1,7 +1,7 @@
 {
-  "name": "TODO",
-  "short_name": "TODO",
-  "description": "TODO",
+  "name": "Cellbound",
+  "short_name": "Cellbound",
+  "description": "Solve logic puzzles within a spreadsheet",
   "categories": [],
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
