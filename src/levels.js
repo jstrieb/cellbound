@@ -214,4 +214,30 @@ You will need to come up with a single formula that will work for <i>all</i> of 
       [{ formula: "=SUM(R0C:R[-1]C)", hidden: false }],
     ],
   },
+
+  {
+    text: `
+Not all of the duplicated cell puzzles will be as easy as the last one.
+`,
+    level: [
+      [undefined],
+      [undefined],
+      [{ reference: { row: 1 } }],
+      [{ reference: { row: 1 } }],
+      [{ reference: { row: 1 } }],
+      [{ reference: { row: 1 } }],
+      [{ reference: { row: 1 } }],
+      [{ formula: "=SUM(R0C:R[-1]C)", locked: true }],
+    ],
+    solution: [
+      ["2"],
+      ["3"],
+      ["4"],
+      ["5"],
+      ["6"],
+      ["7"],
+      ["8"],
+      [{ formula: "=SUM(R0C:R[-1]C)", hidden: false }],
+    ],
+  },
 ];

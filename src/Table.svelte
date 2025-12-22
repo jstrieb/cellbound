@@ -40,6 +40,10 @@
         const cell = row[j];
         $effect(() => {
           try {
+            if (cell.reference) {
+              cell.formula =
+                rows[cell.reference.row ?? i][cell.reference.col ?? j].formula;
+            }
             const parsed = formula.parse(cell.formula);
             const computed = parsed?.compute
               ? parsed.compute(rows, i, j)
