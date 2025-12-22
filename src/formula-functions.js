@@ -65,3 +65,11 @@ functions.xorshift = (x) => {
   x ^= x << 5;
   return x;
 };
+
+functions.row = function () {
+  return this.row;
+};
+
+functions.col = function () {
+  return this.col;
+};

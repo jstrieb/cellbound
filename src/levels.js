@@ -272,4 +272,27 @@ It might be worth reading up on the most famous contributions of the Italian mat
       ["=R[-1]C + R[-2]C"],
     ],
   },
+
+  {
+    level: [
+      [undefined],
+      [{ reference: { row: 0 } }],
+      [{ reference: { row: 0 } }],
+      [{ reference: { row: 0 } }],
+      [{ reference: { row: 0 } }],
+      [{ reference: { row: 0 } }],
+      [{ reference: { row: 0 } }],
+      [{ formula: "=SUM(R0C:R[-1]C)", locked: true }],
+    ],
+    solution: [
+      ["=ROW() * 2 + 1"],
+      ["=ROW() * 2 + 1"],
+      ["=ROW() * 2 + 1"],
+      ["=ROW() * 2 + 1"],
+      ["=ROW() * 2 + 1"],
+      ["=ROW() * 2 + 1"],
+      ["=ROW() * 2 + 1"],
+      [{ formula: "=SUM(R0C:R[-1]C)", hidden: false }],
+    ],
+  },
 ];

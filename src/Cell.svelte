@@ -54,17 +54,17 @@
   <div>
     {#if cell.hidden}
       <input type="text" value="[HIDDEN]" disabled />
-    {:else if cell.locked}
+    {:else if cell.locked || cell.reference}
       <input type="text" bind:value={cell.formula} disabled />
+      {#if cell.reference}
+        <span class="star">*</span>
+      {/if}
     {:else}
       <input
         type="text"
         bind:value={cell.formula}
         onfocus={(e) => e.target.select()}
       />
-      {#if cell.reference}
-        <span class="star">*</span>
-      {/if}
     {/if}
     <p
       class:error={cell.error}
