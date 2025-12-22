@@ -168,6 +168,9 @@
   </p>
   {#if currentLevel < levels.length - 1}
     <button onclick={() => currentLevel++}>Next level &rarr;</button>
+  {:else}
+    <p>No more levels (for now)... Check back later.</p>
+    <p>Thanks for playing!</p>
   {/if}
 {/if}
 
