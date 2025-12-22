@@ -42,7 +42,8 @@ the application from the highest to lowest level.
   to the main, high-level application (the index page mounts the App)
 - [`src/Table.svelte`](src/Table.svelte) and
   [`src/Cell.svelte`](src/Cell.svelte) – interactive spreadsheet UI code
-- [`src/formula.js`](src/formula.js) – formula parsing logic
+- [`src/formula.js`](src/formula.js) – formula parsing logic (start at the
+  bottom of the file and go up)
 - [`src/lib/store.js`](src/lib/store.js) – implementation of "rederivable"
   stores that can change their derived dependencies without invalidating their
   object reference
@@ -85,6 +86,12 @@ To run a local version for live testing and debugging, run:
 ``` bash
 make dev
 ```
+
+
+# AI & LLM Disclosure
+
+This code repository is *entirely human-written*. All bugs, errors, and
+omissions are my own. 
 
 
 # Project Status & Contributing
