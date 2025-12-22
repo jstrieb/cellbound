@@ -49,6 +49,7 @@
     valueHidden;
     value;
     error;
+    reference;
 
     constructor(cell) {
       if (typeof cell == "string") {
@@ -63,6 +64,7 @@
 
       this.value = rederivable();
       this.error = $state();
+      this.reference = $state(false);
     }
 
     toString() {
@@ -96,9 +98,23 @@
   });
 
   const levelData = $derived(
-    level.level.map((row, i) =>
-      row.map((cell, j) => new Cell(cell ?? saved?.[i]?.[j])),
-    ),
+    level.level
+      .map((row, i, rows) =>
+        row.map((cell, j) =>
+          cell?.reference ? cell : new Cell(cell ?? saved?.[i]?.[j]),
+        ),
+      )
+      .map((row, i, rows) =>
+        row.map((cell, j) => {
+          if (cell?.reference) {
+            const result =
+              rows[cell.reference.row ?? i][cell.reference.col ?? j];
+            result.reference = true;
+            return result;
+          }
+          return cell;
+        }),
+      ),
   );
   const solution = $derived(
     level.solution.map((row) =>

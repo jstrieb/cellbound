@@ -11,6 +11,7 @@
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
+    position: relative;
   }
 
   input[type="text"] {
@@ -35,6 +36,14 @@
   .incorrect {
     background: #ffe0e0;
   }
+
+  .star {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5ch;
+    background: none;
+    opacity: 0.5;
+  }
 </style>
 
 <script>
@@ -53,6 +62,9 @@
         bind:value={cell.formula}
         onfocus={(e) => e.target.select()}
       />
+      {#if cell.reference}
+        <span class="star">*</span>
+      {/if}
     {/if}
     <p
       class:error={cell.error}

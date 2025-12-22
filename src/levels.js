@@ -158,6 +158,7 @@ Does the shape of the curve remind you of anything? Perhaps a common trigonometr
 Amaing job! This one may have been tricky if you don't remember trigonometry.
 `,
   },
+
   {
     text: `
 The final spreadsheet formula lanugage feature to introduce is range selection. 
@@ -183,6 +184,34 @@ To complete this level, sum the preceding rows in the final cell.
       ["=XORSHIFT(R[-1]C) % 100 + 1"],
       ["=XORSHIFT(R[-1]C) % 100 + 1"],
       ["=SUM(R0C:R[-1]C)"],
+    ],
+  },
+
+  {
+    text: `
+Now that you know how formulas work, we can get to more interesting puzzles.
+
+For this and most of the upcoming puzzles, formulas will automatically be copied between some of the cells. Duplicated cells are marked with an asterisk in their top right corner.
+
+You will need to come up with a single formula that will work for <i>all</i> of the duplicate cells.
+`,
+    level: [
+      [undefined],
+      [{ reference: { row: 0 } }],
+      [{ reference: { row: 0 } }],
+      [{ reference: { row: 0 } }],
+      [{ reference: { row: 0 } }],
+      [{ reference: { row: 0 } }],
+      [{ formula: "=SUM(R0C:R[-1]C)", locked: true }],
+    ],
+    solution: [
+      [{ formula: "7", valueHidden: true }],
+      [{ formula: "7", valueHidden: true }],
+      [{ formula: "7", valueHidden: true }],
+      [{ formula: "7", valueHidden: true }],
+      [{ formula: "7", valueHidden: true }],
+      [{ formula: "7", valueHidden: true }],
+      [{ formula: "=SUM(R0C:R[-1]C)", hidden: false }],
     ],
   },
 ];
