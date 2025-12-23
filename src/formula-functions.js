@@ -1,17 +1,6 @@
-export const functions = {};
+import { get } from "svelte/store";
 
-Object.getOwnPropertyNames(Math)
-  .filter((n) => typeof Math[n] === "function")
-  .forEach((n) => {
-    functions[n] = (...args) => {
-      if (args.some((s) => typeof s == "string")) {
-        return Math[n](...args.map((arg) => arg ?? ""));
-      } else {
-        return Math[n](...args.map((arg) => arg ?? 0));
-      }
-    };
-    functions[n].toString = () => Math[n].toString();
-  });
+export const functions = {};
 
 functions.sum = (...args) =>
   args.flat(Infinity).reduce((a, x) => a + (x ?? 0), 0);
@@ -39,7 +28,7 @@ functions.times = functions.prod;
 functions.product = functions.prod;
 functions.mult = functions.prod;
 functions.average = functions.avg;
-functions.rand = functions.random;
+functions.rand = Math.random;
 
 functions.sparkbars = (...args) => {
   args = args.flat(Infinity).map((x) => x ?? 0);
@@ -73,3 +62,16 @@ functions.row = function () {
 functions.col = function () {
   return this.col;
 };
+
+functions.delay = function (ms, x) {
+  const id = setTimeout(() => this.set(x), ms);
+  this.cleanup = () => clearTimeout(id);
+  return get(this.cells[this.row][this.col].value);
+};
+
+Object.getOwnPropertyNames(Math)
+  .filter((n) => typeof Math[n] === "function")
+  .forEach((n) => {
+    functions[n] = (...args) => Math[n](...args.map((arg) => arg ?? 0));
+    functions[n].toString = () => Math[n].toString();
+  });
