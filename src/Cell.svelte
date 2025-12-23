@@ -47,7 +47,16 @@
 </style>
 
 <script>
+  import { debounce } from "./lib/helpers.js";
+
   let { cell, value, solution, input } = $props();
+
+  let correct = $state(false);
+  const setCorrect = debounce(
+    (nocheck, x, y) => (correct = nocheck || x == y),
+    50,
+  );
+  $effect(() => setCorrect(cell.nocheck, $value, $solution));
 </script>
 
 <td>
@@ -74,8 +83,8 @@
         white-space: pre;
         {cell.style ?? ''}
       "
-      class:correct={input && (cell.nocheck || $value == $solution)}
-      class:incorrect={input && !cell.nocheck && $value != $solution}
+      class:correct={input && correct}
+      class:incorrect={input && !correct}
     >
       {#if cell.error}
         {cell.error}

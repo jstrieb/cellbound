@@ -131,7 +131,7 @@ Does the shape of the curve remind you of anything? Perhaps a common trigonometr
 </details>
 `,
     level: [
-      [{ formula: "=TICK(100) / 10", locked: true }],
+      [{ formula: "=TICK(100) / 10", locked: true, nocheck: true }],
       [undefined],
       [
         {
@@ -143,7 +143,7 @@ Does the shape of the curve remind you of anything? Perhaps a common trigonometr
       ],
     ],
     solution: [
-      [{ formula: "=TICK(100) / 10", hidden: false }],
+      [{ formula: "=TICK(100) / 10", hidden: false, nocheck: true }],
       ["=SIN(R[-1]C)"],
       [
         {

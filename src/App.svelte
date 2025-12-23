@@ -115,6 +115,7 @@
     ),
   );
 
+  const setSolved = debounce((set, value) => set(value), 50);
   let solved = $derived(
     derived(
       [levelData, solution]
@@ -125,7 +126,10 @@
       (values, set) => {
         if (values.length % 2 != 0) throw new Error("Incorrect data length");
         const length = values.length / 2;
-        set(values.slice(length).every((x, i) => x == values[i]));
+        setSolved(
+          set,
+          values.slice(length).every((x, i) => x == values[i]),
+        );
       },
     ),
   );
