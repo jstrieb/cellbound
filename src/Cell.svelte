@@ -82,7 +82,7 @@
       {:else if cell.valueHidden}
         [HIDDEN]
       {:else if typeof $value == "string"}
-        {$value}
+        {$value || " "}
       {:else}
         {JSON.stringify($value)}
       {/if}
