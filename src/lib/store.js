@@ -1,7 +1,7 @@
 // Created by Jacob Strieb for Code Grid
 // https://github.com/jstrieb/code-grid/blob/000cab18bf7ddd1eea48a00de8dbcbfb592f466b/src/lib/store.js
 
-import { readable } from "svelte/store";
+import { writable } from "svelte/store";
 
 // Like a Svelte derived store, but rederivable without changing the object
 // reference.
@@ -12,16 +12,11 @@ import { readable } from "svelte/store";
 // Warning: this code is confusing and subtle. That's partly because the code
 // it's based on is confusing and subtle. Sorry in advance.
 export function rederivable(init_value) {
-  let set, update;
   let unsubscribers;
   let started = false;
-  let valuePromise = Promise.resolve(undefined);
   let cleanup;
 
-  const result = readable(init_value, (_set, _update) => {
-    set = _set;
-    update = _update;
-  });
+  const result = writable(init_value);
 
   result.rederive = (stores, f) => {
     // Unsubscribe from previous dependencies. According to the docs, subscribe
@@ -45,16 +40,7 @@ export function rederivable(init_value) {
       if (!started) return;
       if (pending.some((x) => x)) return;
       cleanup?.();
-      // Calling valuePromise.then with f ensures a total ordering of the
-      // updates.
-      valuePromise = valuePromise
-        .then(() => f(values, set, update))
-        .then((r) => {
-          cleanup = r;
-        })
-        .catch(() => {
-          valuePromise = Promise.resolve(undefined);
-        });
+      cleanup = f(values, result.set, result.update);
     }
 
     unsubscribers = stores.map((s, i) =>
