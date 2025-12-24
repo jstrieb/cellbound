@@ -76,3 +76,6 @@ Object.getOwnPropertyNames(Math)
       Math[n](...args.map((arg) => (Number.isNaN(arg ?? NaN) ? 0 : arg)));
     functions[n].toString = () => Math[n].toString();
   });
+
+functions.and = (...args) => !!args.reduce((a, x) => a && x, true);
+functions.or = (...args) => !!args.reduce((a, x) => a || x, false);

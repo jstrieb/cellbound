@@ -105,7 +105,7 @@ class UnaryOp extends Expression {
     const computed = operand?.compute ? operand.compute(...args) : operand;
     if (computed.subscribe) {
       return derived([computed], (x, set) =>
-        set(UnaryOp.operations[operator](x)),
+        set(UnaryOp.operations[operator](x ?? 0)),
       );
     } else {
       return UnaryOp.operations[operator](computed);
@@ -174,18 +174,24 @@ class BinaryOp extends Expression {
 
       if (isXStore && isYStore) {
         ast.unshift(
-          derived([x, y], ([a, b], set) => set(BinaryOp.operations[op](a, b))),
+          derived([x, y], ([a, b], set) =>
+            set(BinaryOp.operations[op](a ?? 0, b ?? 0)),
+          ),
         );
       } else if (isXStore) {
         ast.unshift(
-          derived([x], ([a], set) => set(BinaryOp.operations[op](a, y))),
+          derived([x], ([a], set) =>
+            set(BinaryOp.operations[op](a ?? 0, y ?? 0)),
+          ),
         );
       } else if (isYStore) {
         ast.unshift(
-          derived([y], ([b], set) => set(BinaryOp.operations[op](x, b))),
+          derived([y], ([b], set) =>
+            set(BinaryOp.operations[op](x ?? 0, b ?? 0)),
+          ),
         );
       } else {
-        ast.unshift(BinaryOp.operations[op](x, y));
+        ast.unshift(BinaryOp.operations[op](x ?? 0, y ?? 0));
       }
     }
 
