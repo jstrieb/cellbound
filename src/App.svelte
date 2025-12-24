@@ -75,10 +75,13 @@
   let currentLevel = $state(
     parseInt(window.localStorage.getItem("level") ?? 0),
   );
-  let maxLevel = $state(currentLevel);
+  $effect(() => window.localStorage.setItem("level", currentLevel));
+  let maxLevel = $state(
+    parseInt(window.localStorage.getItem("maxLevel") ?? currentLevel),
+  );
   // Derived runes cannot self-reference :(
   $effect(() => (maxLevel = Math.max(maxLevel, currentLevel)));
-  $effect(() => window.localStorage.setItem("level", maxLevel));
+  $effect(() => window.localStorage.setItem("maxLevel", maxLevel));
   let level = $derived(levels[currentLevel]);
   $effect(() => {
     level;
