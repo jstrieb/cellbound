@@ -298,6 +298,8 @@ It might be worth reading up on the most famous contributions of the Italian mat
 
   {
     text: `
+You may need to refresh the page to restart the sequence after you enter your solution.
+
 <details><summary>Hint</summary>
 Cellbound formulas support self-reference.
 </details>

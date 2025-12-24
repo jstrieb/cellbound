@@ -135,6 +135,7 @@ class BinaryOp extends Expression {
     "<": (x, y) => x < y,
     "&&": (x, y) => x && y,
     "||": (x, y) => x || y,
+    "??": (x, y) => x ?? y,
     "<>": (x, y) => x !== y,
     "=": (x, y) => x === y,
 
@@ -433,7 +434,7 @@ const bitwiseAnd = infixL(equality, ["&"], BinaryOp);
 const bitwiseXor = infixL(bitwiseAnd, ["^"], BinaryOp);
 const bitwiseOr = infixL(bitwiseXor, ["|"], BinaryOp);
 const logicalAnd = infixL(bitwiseOr, ["&&"], BinaryOp);
-const logicalOr = infixL(logicalAnd, ["||"], BinaryOp);
+const logicalOr = infixL(logicalAnd, ["||", "??"], BinaryOp);
 expression.become(logicalOr);
 
 export const formula = alt(str("=").then(expression), num).skip(EOF);
