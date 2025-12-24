@@ -373,8 +373,8 @@ const string = alt(
 );
 
 const bool = alt(
-  str("true").map(() => true),
-  str("false").map(() => false),
+  regex(/true/i).map(() => true),
+  regex(/false/i).map(() => false),
 );
 
 const identifier = regex(/[a-zA-Z_][a-zA-Z0-9_]*/);
