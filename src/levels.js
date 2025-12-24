@@ -295,4 +295,44 @@ It might be worth reading up on the most famous contributions of the Italian mat
       [{ formula: "=SUM(R0C:R[-1]C)", hidden: false }],
     ],
   },
+
+  {
+    text: `
+<details><summary>Hint</summary>
+Cellbound formulas support self-reference.
+</details>
+`,
+    level: [
+      [
+        {
+          formula: "=TICK(1000)",
+          hidden: true,
+          valueHidden: true,
+          nocheck: true,
+        },
+      ],
+      [
+        {
+          formula:
+            "=FLOOR((XORSHIFT(R[-1]C + 1)  % 1000 - 500) * R[-1]C / 1000)",
+          hidden: true,
+          nocheck: true,
+        },
+      ],
+      [undefined],
+      [undefined],
+    ],
+    solution: [
+      [{ formula: "=TICK(1000)", valueHidden: true, nocheck: true }],
+      [
+        {
+          formula:
+            "=FLOOR((XORSHIFT(R[-1]C + 1)  % 1000 - 500) * R[-1]C / 1000)",
+          nocheck: true,
+        },
+      ],
+      ["=MIN(R1C, RC)"],
+      ["=MAX(R1C, RC)"],
+    ],
+  },
 ];

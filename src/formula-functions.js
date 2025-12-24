@@ -72,6 +72,7 @@ functions.delay = function (ms, x) {
 Object.getOwnPropertyNames(Math)
   .filter((n) => typeof Math[n] === "function")
   .forEach((n) => {
-    functions[n] = (...args) => Math[n](...args.map((arg) => arg ?? 0));
+    functions[n] = (...args) =>
+      Math[n](...args.map((arg) => (Number.isNaN(arg ?? NaN) ? 0 : arg)));
     functions[n].toString = () => Math[n].toString();
   });
