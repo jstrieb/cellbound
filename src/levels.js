@@ -34,7 +34,7 @@ When everything matches, you can proceed to the next level...
     text: `
 In addition to numbers and text, cells may contain formulas. 
 
-Formulas begin with the <code>=</code> symbol. They can contain math, numbers, and functions. Any of the standard JavaScript <code>Math</code> functions will work.
+Formulas begin with the <code>=</code> symbol. They can contain math, numbers, and functions. Many standard math functions will work.
 `,
     level: empty(4, 1),
     solution: [
