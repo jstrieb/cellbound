@@ -62,6 +62,9 @@ class Function extends Expression {
             col,
             variables,
           };
+          // Mutating the updated array causes hard-to-debug problems with this
+          // store later on
+          updated = [...updated];
           set(
             functions[this.name.toLowerCase()].apply(
               _this,
