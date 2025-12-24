@@ -334,5 +334,8 @@ Cellbound formulas support self-reference.
       ["=MIN(R1C, RC)"],
       ["=MAX(R1C, RC)"],
     ],
+    endText: `
+Maybe later I'll add some more levels with <a href="https://en.wikipedia.org/wiki/Semilattice" target="_blank">semilattices</a>.
+`,
   },
 ];
