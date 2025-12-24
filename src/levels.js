@@ -9,20 +9,20 @@ Welcome!
 
 <b>Cellbound</b> is a logic puzzle game that takes place entirely within a spreadsheet.
 
-Your goal is to edit each formula so that the cell values match the output. 
+Your goal is to edit each formula so that the input cell values match the output. Formulas go in the top box within each cell. The computed value is in the bottom box within each cell.
 
 For the first few levels, the formula for the output will be shown. For the actual puzzles, the formulas will be hidden.
 
 You will learn the spreadsheet formula language as you go.
 
 <hr />
-Cells can contain numbers. They can be in decimal, hexadecimal (<code>0x</code> prefix), or binary (<code>0b</code> prefix).
+Cells can contain numbers and text.
 `,
     level: empty(4, 1),
     solution: [
+      [{ formula: "10", hidden: false }],
       [{ formula: "-1", hidden: false }],
-      [{ formula: "0x10", hidden: false }],
-      [{ formula: "0b101", hidden: false }],
+      [{ formula: "Text", hidden: false }],
       ["=256 ** 2"],
     ],
     endText: `
@@ -32,7 +32,7 @@ When everything matches, you can proceed to the next level...
 
   {
     text: `
-Cells may contain formulas. 
+In addition to numbers and text, cells may contain formulas. 
 
 Formulas begin with the <code>=</code> symbol. They can contain math, numbers, and functions. Any of the standard JavaScript <code>Math</code> functions will work.
 `,
