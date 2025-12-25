@@ -16,13 +16,13 @@ For the first few levels, the formula for the output will be shown. For the actu
 You will learn the spreadsheet formula language as you go.
 
 <hr />
-Cells can contain numbers and text.
+Cells can contain numbers.
 `,
     level: empty(4, 1),
     solution: [
-      [{ formula: "10", hidden: false }],
-      [{ formula: "-1", hidden: false }],
-      [{ formula: "Text", hidden: false }],
+      [{ formula: "420", hidden: false }],
+      [{ formula: "-69", hidden: false }],
+      [{ formula: "1.337", hidden: false }],
       ["=256 ** 2"],
     ],
     endText: `
@@ -32,7 +32,7 @@ When everything matches, you can proceed to the next level...
 
   {
     text: `
-In addition to numbers and text, cells may contain formulas. 
+In addition to numbers, cells may contain formulas. 
 
 Formulas begin with the <code>=</code> symbol. They can contain math, numbers, and functions. Many standard math functions will work.
 `,
@@ -50,7 +50,7 @@ Expand the list below to see all of the available formula functions.
 
   {
     text: `
-Formulas can operate on numbers, booleans, and strings.
+Formulas can operate on numbers, booleans, and strings. Strings and booleans must use a formula beginning with <code>=</code>. 
 `,
     level: empty(3, 1),
     solution: [
@@ -61,7 +61,7 @@ Formulas can operate on numbers, booleans, and strings.
           valueHidden: true,
         },
       ],
-      [{ formula: `="Cat sat on " + "hat"`, hidden: false, valueHidden: true }],
+      [{ formula: `="Cat " + "hat"`, hidden: false, valueHidden: true }],
       [
         {
           formula: `=IF(!true, "hat", "mat")`,

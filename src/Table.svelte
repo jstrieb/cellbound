@@ -66,8 +66,10 @@
             if (!(e instanceof ParseError)) {
               cell.error = e;
               console.error(e);
+            } else {
+              cell.error = "Error: not a valid number or a formula";
             }
-            cell.value.rederive([], (_, set) => set(cell.formula));
+            cell.value.rederive([], (_, set) => set(undefined));
           }
           // Hack to force unsubscribing and cleaning up
           return () => cell.value.rederive([], () => {});
