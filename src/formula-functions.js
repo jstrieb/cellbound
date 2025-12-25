@@ -69,6 +69,12 @@ functions.delay = function (ms, x) {
   return get(this.cells[this.row][this.col].value);
 };
 
+functions.and = (...args) => !!args.reduce((a, x) => a && x, true);
+functions.or = (...args) => !!args.reduce((a, x) => a || x, false);
+functions.not = (x) => !x;
+
+functions.mod = (x, y) => (x ?? 0) % (y ?? 0);
+
 Object.getOwnPropertyNames(Math)
   .filter((n) => typeof Math[n] === "function")
   .forEach((n) => {
@@ -77,8 +83,11 @@ Object.getOwnPropertyNames(Math)
     functions[n].toString = () => Math[n].toString();
   });
 
-functions.and = (...args) => !!args.reduce((a, x) => a && x, true);
-functions.or = (...args) => !!args.reduce((a, x) => a || x, false);
-functions.not = (x) => !x;
-
-functions.mod = (x, y) => (x ?? 0) % (y ?? 0);
+functions.max = (...args) =>
+  Math.max(
+    ...args.flat(Infinity).map((arg) => (Number.isNaN(arg ?? NaN) ? 0 : arg)),
+  );
+functions.min = (...args) =>
+  Math.min(
+    ...args.flat(Infinity).map((arg) => (Number.isNaN(arg ?? NaN) ? 0 : arg)),
+  );
