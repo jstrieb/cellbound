@@ -56,7 +56,7 @@ Formulas can operate on numbers, booleans, and strings. Strings and booleans mus
     solution: [
       [
         {
-          formula: "=!true || !false && !!true",
+          formula: "=OR(NOT(true), AND(NOT(false), NOT(NOT(true))))",
           hidden: false,
           valueHidden: true,
         },

@@ -79,3 +79,6 @@ Object.getOwnPropertyNames(Math)
 
 functions.and = (...args) => !!args.reduce((a, x) => a && x, true);
 functions.or = (...args) => !!args.reduce((a, x) => a || x, false);
+functions.not = (x) => !x;
+
+functions.mod = (x, y) => (x ?? 0) % (y ?? 0);
