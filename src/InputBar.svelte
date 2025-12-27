@@ -10,7 +10,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     gap: 0.5ch;
     overflow: auto;
