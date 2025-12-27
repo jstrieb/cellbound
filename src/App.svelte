@@ -33,6 +33,7 @@
 </style>
 
 <script>
+  import InputBar from "./InputBar.svelte";
   import Table from "./Table.svelte";
   import { levels } from "./levels.js";
   import { functions } from "./formula-functions.js";
@@ -209,6 +210,8 @@
     </ul>
   </div>
 </details>
+
+<InputBar />
 
 <div style="min-height: 50vh">
   <!-- Padding for mobile keyboard convenience -->

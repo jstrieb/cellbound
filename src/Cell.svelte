@@ -14,14 +14,14 @@
     position: relative;
   }
 
-  input[type="text"] {
+  input {
     border: none;
     padding: 0.25rem;
     font-family: monospace, monospace;
     border-bottom: 1px dashed lightgray;
   }
 
-  input[type="text"]:disabled {
+  input:disabled {
     background: #f0f0f0;
   }
 
@@ -71,8 +71,21 @@
     {:else}
       <input
         type="text"
+        inputmode="decmial"
         bind:value={cell.formula}
-        onfocus={(e) => e.target.select()}
+        onfocus={(e) => {
+          e.target.select();
+          if (navigator.maxTouchPoints > 1) {
+            e.target.scrollIntoView();
+            window.scrollBy({ top: -75 });
+          }
+        }}
+        oninput={(e) => {
+          if (navigator.maxTouchPoints > 1) {
+            e.target.scrollIntoView();
+            window.scrollBy({ top: -75 });
+          }
+        }}
       />
     {/if}
     <p
