@@ -142,7 +142,7 @@ class BinaryOp extends Expression {
     // Bitwise
     "&": (x, y) => (x >>> 0) & (y >>> 0),
     "|": (x, y) => (x >>> 0) | (y >>> 0),
-    "^": (x, y) => (x >>> 0) ^ (y >>> 0),
+    // "^": (x, y) => (x >>> 0) ^ (y >>> 0),
     ">>": (x, y) => x >> y,
     ">>>": (x, y) => x >>> y,
     "<<": (x, y) => x << y,
@@ -424,15 +424,15 @@ unary.become(
     value,
   ),
 );
-const power = infixR(unary, ["**"], BinaryOp);
+const power = infixR(unary, ["**", "^"], BinaryOp);
 const product = infixL(power, ["*", "/", "%"], BinaryOp);
 const sum = infixL(product, ["+", "-"], BinaryOp);
 const shift = infixL(sum, ["<<", ">>>", ">>"], BinaryOp);
 const relational = infixL(shift, ["<=", "<", ">=", ">"], BinaryOp);
 const equality = infixL(relational, ["==", "!=", "=", "<>"], BinaryOp);
 const bitwiseAnd = infixL(equality, ["&"], BinaryOp);
-const bitwiseXor = infixL(bitwiseAnd, ["^"], BinaryOp);
-const bitwiseOr = infixL(bitwiseXor, ["|"], BinaryOp);
+// const bitwiseXor = infixL(bitwiseAnd, ["^"], BinaryOp);
+const bitwiseOr = infixL(equality, ["|"], BinaryOp);
 const logicalAnd = infixL(bitwiseOr, ["&&"], BinaryOp);
 const logicalOr = infixL(logicalAnd, ["||", "??"], BinaryOp);
 expression.become(logicalOr);
