@@ -131,24 +131,23 @@ Does the shape of the curve remind you of anything? Perhaps a common trigonometr
 </details>
 `,
     level: [
-      [{ formula: "=TICK(100) / 10", locked: true, nocheck: true }],
+      [{ formula: "=TICK(100) / 10", hidden: true, nocheck: true }],
       [undefined],
       [
         {
           formula: "=SPARKBARS(CACHE(20, R[-1]C))",
           style: "font-family: monospace, monospace",
-          locked: true,
+          hidden: true,
           nocheck: true,
         },
       ],
     ],
     solution: [
-      [{ formula: "=TICK(100) / 10", hidden: false, nocheck: true }],
+      [{ formula: "=TICK(100) / 10", nocheck: true }],
       ["=SIN(R[-1]C)"],
       [
         {
           formula: "=SPARKBARS(CACHE(20, R[-1]C))",
-          hidden: false,
           style: "font-family: monospace, monospace",
           nocheck: true,
         },
