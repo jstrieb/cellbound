@@ -75,16 +75,6 @@
         bind:value={cell.formula}
         onfocus={(e) => {
           e.target.select();
-          if (navigator.maxTouchPoints > 1) {
-            e.target.scrollIntoView();
-            window.scrollBy({ top: -75 });
-          }
-        }}
-        oninput={(e) => {
-          if (navigator.maxTouchPoints > 1) {
-            e.target.scrollIntoView();
-            window.scrollBy({ top: -75 });
-          }
         }}
       />
     {/if}
