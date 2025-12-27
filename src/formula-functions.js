@@ -41,6 +41,7 @@ functions.sparkbars = (...args) => {
 
 const cache = {};
 functions.cache = function (n, x) {
+  if (n == null || x == null) return;
   const k = `${this.row},${this.col}`;
   if (cache[k] == null) cache[k] = [];
   cache[k].push(x);
